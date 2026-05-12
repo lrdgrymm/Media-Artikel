@@ -1,0 +1,45 @@
+# ===========================
+# RuangWarta .gitignore
+# ===========================
+
+# ------ CREDENTIALS & SECRETS ------
+config/credentials.js
+config/*.secret.*
+*.env
+.env
+.env.*
+
+# ------ OS FILES ------
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# ------ IDE / EDITOR ------
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ------ NODE (jika digunakan nanti) ------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ------ UPLOADED ASSETS ------
+assets/uploads/
+assets/images/user-uploads/
+
+# ------ LOGS ------
+*.log
+logs/
+
+# ------ BUILD ------
+dist/
+build/
+*.min.js
+*.min.css

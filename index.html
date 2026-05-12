@@ -4,273 +4,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --ink:#0f0f0f;--ink2:#3a3a3a;--ink3:#7a7a7a;
-  --cream:#faf8f4;--white:#ffffff;
-  --brick:#b5341a;--brick-light:#f5ece9;
-  --border:#e2dfd8;--border-dark:#c8c4bc;
-  --sans:'DM Sans',sans-serif;
-  --serif:'Source Serif 4',Georgia,serif;
-  --display:'Playfair Display',Georgia,serif;
-  --nav-h:60px;
-}
-body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:16px;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button{cursor:pointer;font-family:var(--sans)}
-
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:2px solid var(--ink);height:var(--nav-h)}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:0}
-.nav-logo{font-family:var(--display);font-size:22px;font-weight:900;letter-spacing:-0.5px;color:var(--ink);flex-shrink:0}
-.nav-logo span{color:var(--brick)}
-.nav-cats{display:flex;align-items:center;gap:0;flex:1;padding-left:32px;overflow:hidden}
-.nav-cat{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink2);padding:0 14px;height:var(--nav-h);display:flex;align-items:center;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;cursor:pointer}
-.nav-cat:hover,.nav-cat.active{color:var(--brick);border-bottom-color:var(--brick)}
-.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
-.nav-btn{font-size:12px;font-weight:600;letter-spacing:0.05em;padding:7px 16px;border-radius:2px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);transition:all .15s}
-.nav-btn:hover{background:var(--ink);color:var(--white)}
-.nav-btn.admin{background:var(--brick);border-color:var(--brick);color:var(--white)}
-.nav-btn.admin:hover{opacity:0.85}
-
-/* PAGE SYSTEM */
-.page{display:none;min-height:calc(100vh - var(--nav-h));animation:fadeIn .25s ease}
-.page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-/* HOMEPAGE */
-.home-wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
-
-/* HERO */
-.hero{display:grid;grid-template-columns:1fr 320px;gap:0;border:2px solid var(--ink);margin-bottom:48px}
-.hero-main{position:relative;overflow:hidden;cursor:pointer}
-.hero-img{width:100%;height:440px;object-fit:cover;display:block;background:linear-gradient(135deg,#2d2d2d 0%,#4a3728 50%,#2d4a3a 100%)}
-.hero-img-placeholder{width:100%;height:440px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);position:relative;display:flex;align-items:flex-end}
-.hero-img-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:40px 32px 32px}
-.hero-cat-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;background:var(--brick);color:var(--white);padding:4px 10px;margin-bottom:12px}
-.hero-title{font-family:var(--display);font-size:32px;font-weight:900;color:var(--white);line-height:1.2;margin-bottom:10px}
-.hero-meta{font-size:12px;color:rgba(255,255,255,0.65);display:flex;gap:16px}
-.hero-sidebar{border-left:2px solid var(--ink);display:flex;flex-direction:column}
-.hero-side-item{padding:20px;border-bottom:1.5px solid var(--border);cursor:pointer;transition:background .12s;flex:1;display:flex;flex-direction:column;justify-content:space-between}
-.hero-side-item:last-child{border-bottom:none}
-.hero-side-item:hover{background:#f5f5f3}
-.side-cat{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--brick);margin-bottom:8px}
-.side-title{font-family:var(--display);font-size:16px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:8px}
-.side-meta{font-size:11px;color:var(--ink3)}
-
-/* SECTION HEADERS */
-.sec-header{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
-.sec-title{font-family:var(--display);font-size:20px;font-weight:900;letter-spacing:-0.3px}
-.sec-link{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--brick);margin-left:auto;cursor:pointer}
-.sec-link:hover{text-decoration:underline}
-
-/* ARTICLE GRID */
-.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:56px}
-.article-card{cursor:pointer;transition:opacity .15s}
-.article-card:hover{opacity:.82}
-.card-img{width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#2a2a3a,#3a2a2a);margin-bottom:14px;overflow:hidden;position:relative}
-.card-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px}
-.card-cat{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--brick);margin-bottom:6px}
-.card-title{font-family:var(--display);font-size:18px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:10px}
-.card-excerpt{font-family:var(--serif);font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-meta{font-size:11px;color:var(--ink3);display:flex;gap:12px;align-items:center}
-.card-dot{width:3px;height:3px;border-radius:50%;background:var(--ink3)}
-
-/* TWO COLUMN LAYOUT */
-.two-col{display:grid;grid-template-columns:1fr 300px;gap:48px;margin-bottom:56px}
-.opinion-list{display:flex;flex-direction:column;gap:0}
-.opinion-item{display:grid;grid-template-columns:60px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;align-items:start}
-.opinion-item:first-child{padding-top:0}
-.opinion-item:hover .opinion-title{color:var(--brick)}
-.opinion-num{font-family:var(--display);font-size:36px;font-weight:900;color:var(--border-dark);line-height:1}
-.opinion-cat{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);margin-bottom:5px}
-.opinion-title{font-family:var(--display);font-size:17px;font-weight:700;line-height:1.3;margin-bottom:6px;transition:color .12s}
-.opinion-author{font-size:11px;color:var(--ink3)}
-
-/* SIDEBAR */
-.sidebar-box{background:var(--white);border:1.5px solid var(--border);padding:20px;margin-bottom:24px}
-.sidebar-box-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--border)}
-.pop-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;align-items:start}
-.pop-item:last-child{border-bottom:none;padding-bottom:0}
-.pop-num{font-family:var(--display);font-size:20px;font-weight:900;color:var(--brick);min-width:24px;line-height:1.1}
-.pop-title{font-family:var(--serif);font-size:13px;line-height:1.4;color:var(--ink)}
-.pop-item:hover .pop-title{color:var(--brick)}
-.nl-box{background:var(--ink);color:var(--white);padding:24px}
-.nl-title{font-family:var(--display);font-size:18px;font-weight:900;margin-bottom:8px}
-.nl-desc{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:16px;line-height:1.5}
-.nl-input{width:100%;padding:9px 12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:var(--white);font-family:var(--sans);font-size:13px;margin-bottom:10px;outline:none;border-radius:2px}
-.nl-input::placeholder{color:rgba(255,255,255,.4)}
-.nl-btn{width:100%;padding:9px;background:var(--brick);color:var(--white);border:none;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-radius:2px}
-.nl-btn:hover{opacity:.85}
-
-/* CAT STRIP */
-.cat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:2px solid var(--ink);margin-bottom:56px;overflow:hidden}
-.cat-box{padding:28px 24px;border-right:2px solid var(--ink);cursor:pointer;transition:background .15s;position:relative}
-.cat-box:last-child{border-right:none}
-.cat-box:hover{background:var(--brick);color:var(--white)}
-.cat-box:hover .cat-box-name,.cat-box:hover .cat-box-count{color:var(--white)}
-.cat-box-name{font-family:var(--display);font-size:18px;font-weight:900;margin-bottom:4px;transition:color .15s}
-.cat-box-count{font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--ink3);transition:color .15s}
-.cat-box-icon{font-size:28px;margin-bottom:12px}
-
-/* ARTICLE DETAIL */
-.article-detail{max-width:760px;margin:0 auto;padding:48px 24px}
-.article-detail-wide{max-width:1200px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1fr 280px;gap:56px}
-.article-breadcrumb{font-size:12px;color:var(--ink3);margin-bottom:24px;display:flex;gap:8px;align-items:center}
-.article-breadcrumb span{color:var(--brick)}
-.article-cat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brick);margin-bottom:14px}
-.article-headline{font-family:var(--display);font-size:42px;font-weight:900;line-height:1.15;letter-spacing:-0.5px;margin-bottom:20px}
-.article-lede{font-family:var(--serif);font-size:19px;color:var(--ink2);line-height:1.7;margin-bottom:28px;font-style:italic}
-.article-byline{display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:32px}
-.byline-avatar{width:40px;height:40px;border-radius:50%;background:var(--brick);display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-size:14px}
-.byline-name{font-size:14px;font-weight:600}
-.byline-date{font-size:12px;color:var(--ink3)}
-.byline-read{font-size:12px;color:var(--ink3);margin-left:auto}
-.article-hero-img{width:100%;height:400px;background:linear-gradient(135deg,#1a1a2e,#16213e);margin-bottom:12px}
-.article-img-caption{font-size:12px;color:var(--ink3);margin-bottom:36px;font-style:italic}
-.article-body{font-family:var(--serif);font-size:18px;line-height:1.8;color:var(--ink2)}
-.article-body p{margin-bottom:24px}
-.article-body h2{font-family:var(--display);font-size:24px;font-weight:900;color:var(--ink);margin:36px 0 16px;line-height:1.2}
-.article-body blockquote{border-left:4px solid var(--brick);padding:16px 20px;margin:32px 0;background:var(--brick-light);font-style:italic;font-size:19px;color:var(--ink)}
-.article-tags{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0;padding:24px 0;border-top:1.5px solid var(--border)}
-.tag{font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 12px;border:1.5px solid var(--border-dark);color:var(--ink2);border-radius:2px;cursor:pointer}
-.tag:hover{border-color:var(--brick);color:var(--brick)}
-.share-row{display:flex;gap:10px;margin-bottom:32px;align-items:center}
-.share-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
-.share-btn{font-size:12px;font-weight:600;padding:7px 14px;border:1.5px solid var(--border-dark);background:transparent;color:var(--ink2);border-radius:2px;transition:all .15s}
-.share-btn:hover{border-color:var(--ink);color:var(--ink)}
-.share-btn.wa:hover{border-color:#25d366;color:#25d366}
-.share-btn.fb:hover{border-color:#1877f2;color:#1877f2}
-
-/* ADMIN */
-.admin-wrap{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - var(--nav-h));background:#f5f5f3}
-.admin-sidebar{background:var(--ink);color:var(--white);padding:0;position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto}
-.admin-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.12);font-family:var(--display);font-size:16px;font-weight:900}
-.admin-logo span{color:var(--brick)}
-.admin-nav-section{padding:16px 0 8px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);padding-left:20px}
-.admin-nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);cursor:pointer;transition:all .12s;border-left:3px solid transparent}
-.admin-nav-item:hover{background:rgba(255,255,255,.07);color:var(--white);border-left-color:rgba(255,255,255,.3)}
-.admin-nav-item.active{background:rgba(181,52,26,.15);color:var(--white);border-left-color:var(--brick)}
-.admin-nav-item svg{width:16px;height:16px;opacity:.7;flex-shrink:0}
-.admin-nav-item.active svg{opacity:1}
-.admin-main{padding:32px;overflow-y:auto}
-.admin-page{display:none}
-.admin-page.active{display:block}
-
-/* DASHBOARD STATS */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
-.stat-card{background:var(--white);border:1.5px solid var(--border);padding:20px 24px;border-radius:2px}
-.stat-num{font-family:var(--display);font-size:36px;font-weight:900;line-height:1;margin-bottom:4px}
-.stat-num.brick{color:var(--brick)}
-.stat-label{font-size:12px;color:var(--ink3);font-weight:500;letter-spacing:.03em}
-.stat-change{font-size:11px;color:#1a7a3f;font-weight:600;margin-top:8px}
-
-.admin-section-title{font-family:var(--display);font-size:22px;font-weight:900;margin-bottom:24px;color:var(--ink)}
-.admin-card{background:var(--white);border:1.5px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:24px}
-.admin-table{width:100%;border-collapse:collapse;font-size:13px}
-.admin-table th{text-align:left;padding:12px 16px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);border-bottom:1.5px solid var(--border);background:#f9f9f8}
-.admin-table td{padding:14px 16px;border-bottom:1px solid var(--border);color:var(--ink2);vertical-align:middle}
-.admin-table tr:last-child td{border-bottom:none}
-.admin-table tr:hover td{background:#faf8f4}
-.status-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
-.status-pill.published{background:#e2f4ea;color:#1a7a3f}
-.status-pill.draft{background:#f0f0ee;color:#5a5a5a}
-.status-pill.review{background:#fff3e0;color:#b45309}
-.admin-action-btn{font-size:11px;font-weight:600;padding:5px 10px;border:1.5px solid var(--border-dark);background:transparent;color:var(--ink2);border-radius:2px;cursor:pointer;transition:all .12s;margin-right:4px}
-.admin-action-btn:hover{border-color:var(--brick);color:var(--brick)}
-.admin-top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.admin-primary-btn{padding:9px 20px;background:var(--brick);color:var(--white);border:none;font-weight:700;font-size:13px;border-radius:2px;cursor:pointer;transition:opacity .12s;letter-spacing:.02em}
-.admin-primary-btn:hover{opacity:.85}
-
-/* ARTICLE EDITOR */
-.editor-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:2px;overflow:hidden}
-.editor-toolbar{padding:12px 16px;border-bottom:1.5px solid var(--border);display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:#f9f9f8}
-.editor-tool{padding:5px 10px;border:1.5px solid var(--border-dark);background:transparent;border-radius:2px;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink2)}
-.editor-tool:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
-.editor-body{min-height:320px;padding:24px;font-family:var(--serif);font-size:17px;line-height:1.8;color:var(--ink2);outline:none;border:none;width:100%;resize:none}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.form-group{margin-bottom:16px}
-.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
-.form-input{width:100%;padding:9px 12px;border:1.5px solid var(--border);background:var(--white);font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;border-radius:2px;transition:border-color .12s}
-.form-input:focus{border-color:var(--ink)}
-.form-select{width:100%;padding:9px 12px;border:1.5px solid var(--border);background:var(--white);font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;border-radius:2px;appearance:none}
-.ai-assist-bar{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:var(--white);padding:16px 20px;margin:0 0 20px;border-radius:2px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
-.ai-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-right:4px}
-.ai-btn{font-size:11px;font-weight:600;padding:6px 12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:var(--white);border-radius:2px;cursor:pointer;transition:all .15s}
-.ai-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
-.ai-result{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;padding:12px;margin-top:10px;font-size:13px;line-height:1.6;font-style:italic;display:none;width:100%}
-
-/* LOGIN */
-.login-wrap{max-width:420px;margin:80px auto;padding:0 24px}
-.login-box{background:var(--white);border:2px solid var(--ink);padding:40px}
-.login-header{margin-bottom:32px}
-.login-logo{font-family:var(--display);font-size:24px;font-weight:900;margin-bottom:8px}
-.login-logo span{color:var(--brick)}
-.login-desc{font-size:13px;color:var(--ink3)}
-
-/* FOOTER */
-.footer{background:var(--ink);color:rgba(255,255,255,.7);margin-top:80px}
-.footer-top{max-width:1200px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
-.footer-brand{font-family:var(--display);font-size:22px;font-weight:900;color:var(--white);margin-bottom:12px}
-.footer-brand span{color:var(--brick)}
-.footer-desc{font-size:13px;line-height:1.7;margin-bottom:20px}
-.footer-tagline{font-size:11px;font-style:italic;color:rgba(255,255,255,.4);letter-spacing:.05em}
-.footer-col-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
-.footer-link{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;cursor:pointer;transition:color .12s}
-.footer-link:hover{color:var(--white)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.35)}
-
-/* SEARCH */
-.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;display:none}
-.search-overlay.open{display:flex}
-.search-box{background:var(--white);width:100%;max-width:680px;border:2px solid var(--ink);padding:24px}
-.search-input{width:100%;font-family:var(--display);font-size:28px;font-weight:900;border:none;outline:none;color:var(--ink);padding:0;margin-bottom:16px}
-.search-results{display:flex;flex-direction:column;gap:0}
-.search-result-item{padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer}
-.search-result-item:hover .sr-title{color:var(--brick)}
-.sr-cat{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);margin-bottom:4px}
-.sr-title{font-family:var(--display);font-size:16px;font-weight:700;transition:color .12s}
-
-/* READING MODE */
-.read-mode-btn{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 12px;border:1.5px solid var(--border-dark);background:var(--white);border-radius:2px;cursor:pointer}
-.read-mode-btn:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
-body.reading-mode .article-detail-wide{max-width:760px;grid-template-columns:1fr}
-body.reading-mode .article-aside{display:none}
-body.reading-mode .article-body{font-size:20px;line-height:1.9}
-
-/* CATEGORY PAGE */
-.cat-page{max-width:1200px;margin:0 auto;padding:48px 24px}
-.cat-page-header{margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid var(--ink)}
-.cat-page-name{font-family:var(--display);font-size:48px;font-weight:900;letter-spacing:-1px;line-height:1}
-.cat-page-desc{font-size:15px;color:var(--ink2);margin-top:12px;font-family:var(--serif)}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr}.hero-sidebar{border-left:none;border-top:2px solid var(--ink)}
-  .article-grid{grid-template-columns:repeat(2,1fr)}
-  .two-col,.article-detail-wide{grid-template-columns:1fr}
-  .article-aside{display:none}
-  .cat-strip{grid-template-columns:repeat(2,1fr)}
-  .admin-wrap{grid-template-columns:1fr}
-  .admin-sidebar{position:static;height:auto}
-  .stat-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
-  .article-grid{grid-template-columns:1fr}
-  .hero-title{font-size:24px}
-  .article-headline{font-size:28px}
-  .form-row{grid-template-columns:1fr}
-  .nav-cats{display:none}
-  .stat-grid{grid-template-columns:1fr 1fr}
-  .footer-top{grid-template-columns:1fr}
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">Konfirmasi</div>
+    <div class="modal-desc" id="modalDesc">Apakah Anda yakin?</div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Batal</button>
+      <button class="modal-confirm" id="modalConfirmBtn" onclick="confirmAction()">Ya, Lanjutkan</button>
+    </div>
+  </div>
+</div>
 
 <!-- SEARCH OVERLAY -->
 <div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
@@ -294,7 +50,7 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
     </div>
     <div class="nav-right">
       <button class="nav-btn" onclick="openSearch()">⌕ Cari</button>
-      <button class="nav-btn admin" onclick="showPage('admin')">Admin</button>
+      <button class="nav-btn admin" id="navAdminBtn" onclick="handleAdminNav()">Admin</button>
     </div>
   </div>
 </nav>
@@ -377,6 +133,15 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
         <div class="card-excerpt">Setelah tiga tahun absen, festival ini kembali menghidupkan ekosistem seni rupa komunitas lokal.</div>
         <div class="card-meta"><span>Dewi Anggraini</span><div class="card-dot"></div><span>12 Mei 2025</span><div class="card-dot"></div><span>6 mnt</span></div>
       </div>
+    </div>
+
+    <!-- REKOMENDASI -->
+    <div id="rekomendasi-section" style="display:none; margin-bottom:56px;">
+      <div class="sec-header">
+        <div class="sec-title">Direkomendasikan Untuk Anda</div>
+        <div class="sec-link" style="color:var(--ink3);cursor:default;text-decoration:none">Berdasarkan Histori Anda</div>
+      </div>
+      <div class="article-grid" id="rekomendasi-grid"></div>
     </div>
 
     <!-- OPINI + SIDEBAR -->
@@ -571,9 +336,9 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
       <div class="article-img-caption">Foto: Warga desa Pantai Rejo mengambil air dari sumur yang mulai mengering. (Dokumentasi RuangWarta)</div>
       <div class="share-row">
         <span class="share-label">Bagikan:</span>
-        <button class="share-btn wa">WhatsApp</button>
-        <button class="share-btn fb">Facebook</button>
-        <button class="share-btn">X / Twitter</button>
+        <button class="share-btn wa" onclick="shareWA()">WhatsApp</button>
+        <button class="share-btn fb" onclick="shareFB()">Facebook</button>
+        <button class="share-btn" onclick="shareTW()">X / Twitter</button>
         <button class="share-btn" onclick="copyLink()">Salin Tautan</button>
       </div>
       <div class="article-body" id="article-body">
@@ -640,16 +405,58 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
         <div class="login-logo">Ruang<span>Warta</span></div>
         <div class="login-desc">Panel Redaksi — masuk dengan akun editor</div>
       </div>
+      <div class="login-error" id="loginError">Email atau kata sandi salah.</div>
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input class="form-input" type="email" value="editor@ruangwarta.id" placeholder="Email redaksi">
+        <input class="form-input" type="email" id="loginEmail" value="admin@ruangwarta.id" placeholder="Email redaksi" autocomplete="email">
       </div>
       <div class="form-group">
         <label class="form-label">Kata Sandi</label>
-        <input class="form-input" type="password" value="••••••••" placeholder="Kata sandi">
+        <input class="form-input" type="password" id="loginPassword" placeholder="Kata sandi" autocomplete="current-password">
       </div>
-      <button class="admin-primary-btn" style="width:100%;padding:12px;font-size:14px" onclick="showPage('admin')">Masuk ke Panel Redaksi</button>
-      <div style="margin-top:16px;font-size:12px;color:var(--ink3);text-align:center;cursor:pointer;text-decoration:underline">Lupa kata sandi?</div>
+      <button class="admin-primary-btn" style="width:100%;padding:12px;font-size:14px" onclick="handleLogin()">Masuk ke Panel Redaksi</button>
+      <div style="margin-top:16px;font-size:12px;color:var(--ink3);text-align:center;cursor:pointer;text-decoration:underline" onclick="showToast('info','Hubungi admin di redaksi@ruangwarta.id untuk reset kata sandi.')">Lupa kata sandi?</div>
+      <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--ink3);text-align:center;">
+        Belum tergabung di redaksi? <span style="cursor:pointer;color:var(--brick);font-weight:600" onclick="showPage('register')">Daftar sebagai Editor</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== EDITOR REGISTER ========== -->
+<div class="page" id="page-register">
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-header">
+        <div class="login-logo">Ruang<span>Warta</span></div>
+        <div class="login-desc">Daftar sebagai Editor — gabung ke tim redaksi</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nama Lengkap</label>
+        <input class="form-input" type="text" placeholder="Nama lengkap">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="Email aktif">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Kategori Keahlian</label>
+        <select class="form-select">
+          <option>Pilih spesialisasi...</option>
+          <option>Berita</option>
+          <option>Opini</option>
+          <option>Lingkungan</option>
+          <option>Budaya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Kata Sandi</label>
+        <input class="form-input" type="password" placeholder="Buat kata sandi">
+      </div>
+      <button class="admin-primary-btn" style="width:100%;padding:12px;font-size:14px" onclick="alert('Pendaftaran berhasil diajukan! Menunggu persetujuan Admin Utama.');showPage('login')">Ajukan Pendaftaran</button>
+      <div style="margin-top:16px;font-size:12px;color:var(--ink3);text-align:center;">
+        Sudah punya akun? <span style="cursor:pointer;color:var(--brick);font-weight:600" onclick="showPage('login')">Masuk di sini</span>
+      </div>
     </div>
   </div>
 </div>
@@ -678,29 +485,33 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
         Kategori
       </div>
-      <div class="admin-nav-item">
+      <div class="admin-nav-item" onclick="switchAdmin('access')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Hak Akses
+      </div>
+      <div class="admin-nav-item" onclick="showToast('info','Manajemen Tag akan tersedia pada versi mendatang.')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
         Tag
       </div>
-      <div class="admin-nav-item">
+      <div class="admin-nav-item" onclick="showToast('info','Manajemen Penulis akan tersedia pada versi mendatang.')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Penulis
       </div>
       <div class="admin-nav-section">Interaksi</div>
-      <div class="admin-nav-item">
+      <div class="admin-nav-item" onclick="showToast('info','Moderasi Komentar akan tersedia pada versi mendatang.')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Komentar
       </div>
-      <div class="admin-nav-item">
+      <div class="admin-nav-item" onclick="showToast('info','Manajemen Newsletter akan tersedia pada versi mendatang.')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Newsletter
       </div>
       <div class="admin-nav-section">Sistem</div>
-      <div class="admin-nav-item">
+      <div class="admin-nav-item" onclick="showToast('info','Pengaturan sistem akan tersedia pada versi mendatang.')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41A8 8 0 0 1 19.93 12h2a10 10 0 0 0-2.86-7.07z"/><path d="M4.93 4.93l1.41 1.41A8 8 0 0 0 4.07 12h-2a10 10 0 0 1 2.86-7.07z"/></svg>
         Pengaturan
       </div>
-      <div class="admin-nav-item" onclick="showPage('home')" style="margin-top:8px">
+      <div class="admin-nav-item" onclick="handleLogout()" style="margin-top:8px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Keluar
       </div>
@@ -747,8 +558,8 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
             <tbody>
               <tr><td><span style="font-weight:600">Krisis Air di Pesisir Selatan</span></td><td>Sari Dewanti</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>4.821</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
               <tr><td><span style="font-weight:600">DPRD Kota Gelar Rapat Darurat</span></td><td>Rahmat Hakim</td><td>Berita</td><td><span class="status-pill published">Terbit</span></td><td>2.103</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
-              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td>Opini</td><td><span class="status-pill review">Review</span></td><td>—</td><td><button class="admin-action-btn">Publish</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
-              <tr><td><span style="font-weight:600">Perpustakaan Keliling di Desa</span></td><td>Kontributor</td><td>Liputan Warga</td><td><span class="status-pill draft">Draft</span></td><td>—</td><td><button class="admin-action-btn">Review</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td>Opini</td><td><span class="status-pill review">Review</span></td><td>—</td><td><button class="admin-action-btn" onclick="adminPublish(this)">Publish</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+              <tr><td><span style="font-weight:600">Perpustakaan Keliling di Desa</span></td><td>Kontributor</td><td>Liputan Warga</td><td><span class="status-pill draft">Draft</span></td><td>—</td><td><button class="admin-action-btn" onclick="adminReview(this)">Review</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
               <tr><td><span style="font-weight:600">Festival Seni Lokal Kembali Hadir</span></td><td>Dewi Anggraini</td><td>Budaya</td><td><span class="status-pill published">Terbit</span></td><td>1.876</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
             </tbody>
           </table>
@@ -815,12 +626,12 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
           <table class="admin-table">
             <thead><tr><th>Judul Artikel</th><th>Penulis</th><th>Kategori</th><th>Status</th><th>Tanggal</th><th>Views</th><th>Aksi</th></tr></thead>
             <tbody>
-              <tr><td><span style="font-weight:600">Krisis Air di Pesisir Selatan</span></td><td>Sari Dewanti</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>14 Mei</td><td>4.821</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
-              <tr><td><span style="font-weight:600">Pasar Tradisional Terakhir</span></td><td>Adi Pratama</td><td>Komunitas</td><td><span class="status-pill published">Terbit</span></td><td>13 Mei</td><td>1.204</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
-              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td>Opini</td><td><span class="status-pill review">Review</span></td><td>12 Mei</td><td>—</td><td><button class="admin-action-btn">Publish</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><span style="font-weight:600">Perpustakaan Keliling di Desa</span></td><td>Kontributor</td><td>Liputan Warga</td><td><span class="status-pill draft">Draft</span></td><td>11 Mei</td><td>—</td><td><button class="admin-action-btn">Review</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><span style="font-weight:600">Festival Seni Lokal Kembali</span></td><td>Dewi Anggraini</td><td>Budaya</td><td><span class="status-pill published">Terbit</span></td><td>12 Mei</td><td>1.876</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
-              <tr><td><span style="font-weight:600">Hutan Mangrove Terancam</span></td><td>Yanti Kusuma</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>13 Mei</td><td>987</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Krisis Air di Pesisir Selatan</span></td><td>Sari Dewanti</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>14 Mei</td><td>4.821</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn" onclick="adminArsip(this)">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Pasar Tradisional Terakhir</span></td><td>Adi Pratama</td><td>Komunitas</td><td><span class="status-pill published">Terbit</span></td><td>13 Mei</td><td>1.204</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn" onclick="adminArsip(this)">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td>Opini</td><td><span class="status-pill review">Review</span></td><td>12 Mei</td><td>—</td><td><button class="admin-action-btn" onclick="adminPublish(this)">Publish</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn" onclick="adminHapus(this)">Hapus</button></td></tr>
+              <tr><td><span style="font-weight:600">Perpustakaan Keliling di Desa</span></td><td>Kontributor</td><td>Liputan Warga</td><td><span class="status-pill draft">Draft</span></td><td>11 Mei</td><td>—</td><td><button class="admin-action-btn" onclick="adminReview(this)">Review</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn" onclick="adminHapus(this)">Hapus</button></td></tr>
+              <tr><td><span style="font-weight:600">Festival Seni Lokal Kembali</span></td><td>Dewi Anggraini</td><td>Budaya</td><td><span class="status-pill published">Terbit</span></td><td>12 Mei</td><td>1.876</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn" onclick="adminArsip(this)">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Hutan Mangrove Terancam</span></td><td>Yanti Kusuma</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>13 Mei</td><td>987</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn" onclick="adminArsip(this)">Arsip</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -831,8 +642,8 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
         <div class="admin-top-bar">
           <div class="admin-section-title">Tulis Artikel</div>
           <div style="display:flex;gap:8px">
-            <button class="admin-action-btn">Simpan Draft</button>
-            <button class="admin-action-btn">Preview</button>
+            <button class="admin-action-btn" onclick="saveDraft()">Simpan Draft</button>
+            <button class="admin-action-btn" onclick="previewArticle()">Preview</button>
             <button class="admin-primary-btn" onclick="publishDone()">Publish</button>
           </div>
         </div>
@@ -948,18 +759,38 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
       <div class="admin-page" id="admin-categories">
         <div class="admin-top-bar">
           <div class="admin-section-title">Manajemen Kategori</div>
-          <button class="admin-primary-btn">+ Tambah Kategori</button>
+          <button class="admin-primary-btn" onclick="addCategory()">+ Tambah Kategori</button>
         </div>
         <div class="admin-card">
           <table class="admin-table">
             <thead><tr><th>Nama Kategori</th><th>Slug</th><th>Deskripsi</th><th>Jumlah Artikel</th><th>Aksi</th></tr></thead>
             <tbody>
-              <tr><td><strong>Berita</strong></td><td style="color:var(--brick);font-size:12px">/kategori/berita</td><td style="color:var(--ink3)">Liputan peristiwa terkini</td><td>124</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><strong>Opini</strong></td><td style="color:var(--brick);font-size:12px">/kategori/opini</td><td style="color:var(--ink3)">Pendapat dan analisis</td><td>87</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><strong>Budaya</strong></td><td style="color:var(--brick);font-size:12px">/kategori/budaya</td><td style="color:var(--ink3)">Seni, tradisi, dan identitas</td><td>62</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><strong>Komunitas</strong></td><td style="color:var(--brick);font-size:12px">/kategori/komunitas</td><td style="color:var(--ink3)">Gerakan dan cerita warga</td><td>58</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><strong>Lingkungan</strong></td><td style="color:var(--brick);font-size:12px">/kategori/lingkungan</td><td style="color:var(--ink3)">Alam, iklim, dan keberlanjutan</td><td>49</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
-              <tr><td><strong>Liputan Warga</strong></td><td style="color:var(--brick);font-size:12px">/kategori/liputan-warga</td><td style="color:var(--ink3)">Suara langsung dari lapangan</td><td>44</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><strong>Berita</strong></td><td style="color:var(--brick);font-size:12px">/kategori/berita</td><td style="color:var(--ink3)">Liputan peristiwa terkini</td><td>124</td><td><button class="admin-action-btn" onclick="showToast('info','Mode edit kategori aktif.')">Edit</button><button class="admin-action-btn" onclick="adminHapusKategori(this)">Hapus</button></td></tr>
+              <tr><td><strong>Opini</strong></td><td style="color:var(--brick);font-size:12px">/kategori/opini</td><td style="color:var(--ink3)">Pendapat dan analisis</td><td>87</td><td><button class="admin-action-btn" onclick="showToast('info','Mode edit kategori aktif.')">Edit</button><button class="admin-action-btn" onclick="adminHapusKategori(this)">Hapus</button></td></tr>
+              <tr><td><strong>Budaya</strong></td><td style="color:var(--brick);font-size:12px">/kategori/budaya</td><td style="color:var(--ink3)">Seni, tradisi, dan identitas</td><td>62</td><td><button class="admin-action-btn" onclick="showToast('info','Mode edit kategori aktif.')">Edit</button><button class="admin-action-btn" onclick="adminHapusKategori(this)">Hapus</button></td></tr>
+              <tr><td><strong>Komunitas</strong></td><td style="color:var(--brick);font-size:12px">/kategori/komunitas</td><td style="color:var(--ink3)">Gerakan dan cerita warga</td><td>58</td><td><button class="admin-action-btn" onclick="showToast('info','Mode edit kategori aktif.')">Edit</button><button class="admin-action-btn" onclick="adminHapusKategori(this)">Hapus</button></td></tr>
+              <tr><td><strong>Lingkungan</strong></td><td style="color:var(--brick);font-size:12px">/kategori/lingkungan</td><td style="color:var(--ink3)">Alam, iklim, dan keberlanjutan</td><td>49</td><td><button class="admin-action-btn" onclick="showToast('info','Mode edit kategori aktif.')">Edit</button><button class="admin-action-btn" onclick="adminHapusKategori(this)">Hapus</button></td></tr>
+              <tr><td><strong>Liputan Warga</strong></td><td style="color:var(--brick);font-size:12px">/kategori/liputan-warga</td><td style="color:var(--ink3)">Suara langsung dari lapangan</td><td>44</td><td><button class="admin-action-btn" onclick="showToast('info','Mode edit kategori aktif.')">Edit</button><button class="admin-action-btn" onclick="adminHapusKategori(this)">Hapus</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ACCESS CONTROL -->
+      <div class="admin-page" id="admin-access">
+        <div class="admin-top-bar">
+          <div class="admin-section-title">Pengaturan Hak Akses Artikel</div>
+        </div>
+        <div class="admin-card" style="padding:20px;margin-bottom:24px">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px">Hak Akses Editor</div>
+          <div style="font-size:13px;color:var(--ink3);margin-bottom:16px">Tentukan editor mana yang memiliki izin untuk memodifikasi artikel dalam kategori tertentu, atau atur visibilitas artikel secara spesifik.</div>
+          <table class="admin-table">
+            <thead><tr><th>Judul Artikel</th><th>Penulis</th><th>Hak Akses Editor</th><th>Akses Pembaca</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr><td><span style="font-weight:600">Krisis Air di Pesisir Selatan</span></td><td>Sari Dewanti</td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option>Hanya Penulis & Admin</option><option selected>Semua Editor</option></select></td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option selected>Publik</option><option>Premium</option></select></td><td><button class="admin-action-btn" onclick="showToast('success','Hak akses diperbarui.')">Simpan</button></td></tr>
+              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option selected>Hanya Penulis & Admin</option><option>Semua Editor</option></select></td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option selected>Publik</option><option>Premium</option></select></td><td><button class="admin-action-btn" onclick="showToast('success','Hak akses diperbarui.')">Simpan</button></td></tr>
+              <tr><td><span style="font-weight:600">DPRD Kota Gelar Rapat Darurat</span></td><td>Rahmat Hakim</td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option>Hanya Penulis & Admin</option><option selected>Semua Editor</option></select></td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option selected>Publik</option><option>Premium</option></select></td><td><button class="admin-action-btn" onclick="showToast('success','Hak akses diperbarui.')">Simpan</button></td></tr>
+              <tr><td><span style="font-weight:600">Festival Seni Lokal Kembali Hadir</span></td><td>Dewi Anggraini</td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option>Hanya Penulis & Admin</option><option selected>Semua Editor</option></select></td><td><select class="form-select" style="padding:4px;font-size:12px;margin:0"><option selected>Publik</option><option>Premium</option></select></td><td><button class="admin-action-btn" onclick="showToast('success','Hak akses diperbarui.')">Simpan</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -969,153 +800,10 @@ body.reading-mode .article-body{font-size:20px;line-height:1.9}
   </div>
 </div>
 
-<script>
-const articles = {
-  featured:{cat:'Lingkungan',title:'Krisis Air di Pesisir Selatan: Ketika Warga Harus Pilih Antara Minum dan Mandi',lede:'Ribuan warga di lima kecamatan pesisir kini menghadapi krisis air bersih yang makin parah seiring mundurnya muka air tanah.',author:'Sari Dewanti',av:'SD',date:'14 Mei 2025',read:'8 menit baca'},
-  a2:{cat:'Komunitas',title:'Pasar Tradisional Terakhir di Pusat Kota Hadapi Ancaman Pembangunan Mall',lede:'Pedagang yang sudah berjualan puluhan tahun kini was-was setelah investor besar melirik lahan pasar.',author:'Adi Pratama',av:'AP',date:'13 Mei 2025',read:'5 menit baca'},
-  a3:{cat:'Pendidikan',title:'Sekolah Satu Atap di Perbatasan: Satu Guru untuk Enam Kelas',lede:'Di pelosok perbatasan, seorang guru mengabdi sendirian, mengajar dari kelas satu hingga enam dengan penuh dedikasi.',author:'Lilis Handayani',av:'LH',date:'13 Mei 2025',read:'7 menit baca'},
-  a4:{cat:'Opini',title:'Mengapa Subsidi Bahan Bakar Bukan Solusi Energi Jangka Panjang',lede:'Ketergantungan pada subsidi BBM justru memperlambat transisi energi bersih yang sudah mendesak dilakukan.',author:'Prof. Budi Santoso',av:'BS',date:'13 Mei 2025',read:'6 menit baca'},
-  a5:{cat:'Lingkungan',title:'Hutan Mangrove Terancam: 40% Kawasan Pesisir Rusak Akibat Tambak Ilegal',lede:'Riset terbaru menunjukkan kerusakan yang jauh lebih parah dari perkiraan awal, mengancam ekosistem laut.',author:'Yanti Kusuma',av:'YK',date:'13 Mei 2025',read:'5 menit baca'},
-  a6:{cat:'Berita',title:'DPRD Kota Gelar Rapat Darurat Soal Anggaran Infrastruktur yang Tersendat',lede:'Sembilan proyek pembangunan jalan dihentikan sementara karena menunggu pencairan anggaran.',author:'Rahmat Hakim',av:'RH',date:'12 Mei 2025',read:'4 menit baca'},
-  a7:{cat:'Budaya',title:'Festival Seni Lokal Kembali Hadir: Puluhan Seniman Muda Pamerkan Karyanya',lede:'Setelah tiga tahun vakum, festival ini kembali menjadi ruang ekspresi bagi komunitas seni lokal.',author:'Dewi Anggraini',av:'DA',date:'12 Mei 2025',read:'6 menit baca'},
-  op1:{cat:'Opini',title:'Kota Pintar tanpa Warga Cerdas: Ironi Digitalisasi yang Tak Merata',lede:'Program smart city menghabiskan miliaran rupiah, namun masih banyak warga yang belum bisa mengakses internet.',author:'Mirna Sanjaya',av:'MS',date:'12 Mei 2025',read:'7 menit baca'},
-  op2:{cat:'Esai',title:'Belajar dari Desa: Kenapa Kota Justru Perlu Meniru Gotong Royong',lede:'Di saat urbanisasi mengikis solidaritas, desa-desa kecil justru membuktikan nilai-nilai komunal masih bisa diandalkan.',author:'Hendra Wijaya',av:'HW',date:'11 Mei 2025',read:'8 menit baca'},
-  op3:{cat:'Opini',title:'Media Lokal di Titik Kritis: Antara Bertahan dan Bermartabat',lede:'Tekanan ekonomi dan konsolidasi media mengancam keberagaman informasi yang selama ini dijaga media lokal.',author:'Fitri Amaliah',av:'FA',date:'10 Mei 2025',read:'6 menit baca'},
-  op4:{cat:'Esai',title:'Ruang Publik yang Kita Rindukan: Taman Kota bukan untuk Warga',lede:'Taman yang seharusnya menjadi milik semua kini semakin sulit diakses oleh warga dari kalangan bawah.',author:'Ahmad Fauzan',av:'AF',date:'9 Mei 2025',read:'5 menit baca'},
-  lw1:{cat:'Liputan Warga',title:'Kisah Bu Siti: Bertahan Jadi Petani Garam di Tengah Gempuran Impor',lede:'Tiga generasi keluarga Siti bergantung pada ladang garam yang kini terancam kebijakan impor besar-besaran.',author:'Kontributor Lokal',av:'KL',date:'10 Mei 2025',read:'6 menit baca'},
-  lw2:{cat:'Liputan Warga',title:'Kampung Digital: Ketika Ibu-Ibu PKK Belajar Jualan Online dari Nol',lede:'Program pelatihan ekonomi digital membawa perubahan nyata bagi kehidupan warga kampung terpencil ini.',author:'Kontributor Lokal',av:'KL',date:'9 Mei 2025',read:'5 menit baca'},
-  lw3:{cat:'Liputan Warga',title:'Perpustakaan Keliling di Desa: Satu Motor, Ratusan Buku, Ribuan Mimpi',lede:'Pak Darmawan sudah 12 tahun membawa buku ke pelosok desa dengan motor tuanya yang mulai sering mogok.',author:'Kontributor Lokal',av:'KL',date:'8 Mei 2025',read:'7 menit baca'},
-};
-
-const catInfo = {
-  Berita:{desc:'Laporan peristiwa terkini dari berbagai penjuru dengan pendekatan jurnalistik yang bertanggung jawab.'},
-  Opini:{desc:'Ruang bagi penulis, peneliti, dan warga untuk menyuarakan gagasan, kritik, dan refleksi.'},
-  Budaya:{desc:'Cerita tentang seni, tradisi, identitas lokal, dan ekspresi budaya masyarakat.'},
-  Komunitas:{desc:'Liputan gerakan, inisiatif, dan cerita dari berbagai komunitas yang membentuk masyarakat kita.'},
-  Lingkungan:{desc:'Isu alam, perubahan iklim, dan keberlanjutan dari sudut pandang warga dan peneliti.'},
-  Pendidikan:{desc:'Cerita dari ruang belajar: sekolah, kampus, komunitas, dan semua tempat ilmu tumbuh.'},
-  'Liputan Warga':{desc:'Suara langsung dari lapangan: warga bercerita tentang kehidupan dan perjuangan mereka.'},
-};
-
-function showPage(p){
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  window.scrollTo(0,0);
-  if(p==='admin'){
-    document.querySelectorAll('.admin-page').forEach(el=>el.classList.remove('active'));
-    document.getElementById('admin-dashboard').classList.add('active');
-    document.querySelectorAll('.admin-nav-item').forEach(el=>el.classList.remove('active'));
-    document.querySelector('.admin-nav-item').classList.add('active');
-  }
-}
-
-function showArticle(id){
-  const a=articles[id];
-  if(!a)return;
-  document.getElementById('article-cat').textContent=a.cat;
-  document.getElementById('article-breadcat').textContent=a.cat;
-  document.getElementById('article-title').textContent=a.title;
-  document.getElementById('article-lede').textContent=a.lede;
-  document.getElementById('article-author').textContent=a.author;
-  document.getElementById('article-avatar').textContent=a.av;
-  document.getElementById('article-date').textContent=a.date;
-  document.getElementById('article-read').textContent=a.read;
-  showPage('article');
-}
-
-function showCat(name){
-  document.getElementById('cat-name').textContent=name;
-  document.getElementById('cat-desc').textContent=(catInfo[name]||{desc:'Artikel-artikel pilihan dalam kategori ini.'}).desc;
-  const keys=Object.keys(articles).filter(k=>articles[k].cat===name||name==='Berita');
-  const grid=document.getElementById('cat-articles');
-  const shown=keys.slice(0,6);
-  grid.innerHTML=shown.map(k=>{
-    const a=articles[k];
-    return `<div class="article-card" onclick="showArticle('${k}')">
-      <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#1a1a2e,#2d4a3a)">${['🌿','📰','🎭','🏘️','🎓','🌊'][Math.floor(Math.random()*6)]}</div></div>
-      <div class="card-cat">${a.cat}</div>
-      <div class="card-title">${a.title}</div>
-      <div class="card-excerpt">${a.lede}</div>
-      <div class="card-meta"><span>${a.author}</span><div class="card-dot"></div><span>${a.date}</span></div>
-    </div>`;
-  }).join('');
-  showPage('category');
-  document.querySelectorAll('.nav-cat').forEach(el=>{
-    el.classList.toggle('active',el.textContent===name);
-  });
-}
-
-function switchAdmin(panel){
-  document.querySelectorAll('.admin-page').forEach(el=>el.classList.remove('active'));
-  document.getElementById('admin-'+panel).classList.add('active');
-  document.querySelectorAll('.admin-nav-item').forEach(el=>el.classList.remove('active'));
-  const map={dashboard:0,articles:1,'new-article':2,categories:3};
-  const items=document.querySelectorAll('.admin-nav-item');
-  if(map[panel]!==undefined)items[map[panel]].classList.add('active');
-}
-
-function openSearch(){
-  document.getElementById('searchOverlay').classList.add('open');
-  setTimeout(()=>document.getElementById('searchInput').focus(),50);
-}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open')}
-
-function doSearch(q){
-  const res=document.getElementById('searchResults');
-  if(!q.trim()){res.innerHTML='';return;}
-  const matches=Object.keys(articles).filter(k=>articles[k].title.toLowerCase().includes(q.toLowerCase())||articles[k].cat.toLowerCase().includes(q.toLowerCase()));
-  res.innerHTML=matches.slice(0,5).map(k=>`<div class="search-result-item" onclick="closeSearch();showArticle('${k}')">
-    <div class="sr-cat">${articles[k].cat}</div>
-    <div class="sr-title">${articles[k].title}</div>
-  </div>`).join('')||`<div style="padding:16px 0;color:var(--ink3);font-size:14px">Tidak ada hasil untuk "${q}"</div>`;
-}
-
-function updateSlug(v){
-  document.getElementById('articleSlug').value=v.toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
-}
-
-const aiResponses = {
-  headline:['5 Alternatif Judul:\n1. Air di Ujung Tanduk: Ribuan Warga Pesisir Kehabisan Sumber\n2. Mata Air Mengering, Warga Bertahan: Laporan dari Pesisir Selatan\n3. Tiga Bulan Tanpa Air: Kisah dari Balik Krisis yang Tak Terliput\n4. Ketika Laut Ada di Mana-Mana Tapi Air Bersih Tak Ada\n5. Sumur Mengering, Harapan Tak Boleh Ikut Mengering'],
-  summary:['Ringkasan: Lebih dari 12.000 kepala keluarga di lima kecamatan pesisir menghadapi krisis air bersih akibat penurunan debet air tanah hingga 70 persen. Warga terpaksa menempuh jarak jauh untuk mengambil air dari mata air satu-satunya yang tersisa, sementara pemerintah daerah belum menunjukkan respons yang memadai.'],
-  meta:['Meta Description (118 karakter):\n"Krisis air bersih di pesisir selatan memaksa ribuan warga tempuh jarak jauh setiap hari. Investigasi RuangWarta dari lapangan."'],
-  tags:['Rekomendasi 8 Tag:\n• Air Bersih • Pesisir Selatan • Krisis Air • Lingkungan Hidup\n• Tambak Ilegal • Warga Terdampak • Investigasi • Kebijakan Daerah'],
-  proofread:['✓ Ejaan dan tanda baca: Baik\n✓ Konsistensi gaya bahasa: Cukup baik\n⚠ Kalimat ke-3 paragraf 2: Terlalu panjang, sebaiknya dipecah\n⚠ Kata "daripada" sebaiknya diganti "dari" di paragraf 4\n✓ Lead sudah kuat dan langsung ke inti'],
-  caption:['Caption Instagram:\n"Tiga bulan. Jarak 2 km. Jeriken 20 liter. Itu rutinitas Bu Sumiyati setiap pagi hanya untuk mendapat air minum.\n\nKrisis air di pesisir selatan bukan cerita baru—tapi masih saja luput dari perhatian.\n\nBaca selengkapnya di link bio. 🔗\n\n#AirBersih #LingkunganHidup #MediaIndependen #RuangWarta"']
-};
-
-function aiGenerate(type){
-  const r=document.getElementById('aiResult');
-  r.style.display='block';
-  r.textContent='🤖 Memproses...';
-  setTimeout(()=>{
-    r.textContent=aiResponses[type][0];
-    r.style.whiteSpace='pre-line';
-  },800);
-}
-
-function publishDone(){
-  alert('✓ Artikel berhasil dipublikasikan!');
-  switchAdmin('articles');
-}
-
-function fakeUpload(){
-  const p=document.getElementById('uploadPlaceholder');
-  p.innerHTML='<div style="font-size:28px">✅</div><div style="font-size:12px;color:#1a7a3f;margin-top:4px;font-weight:600">foto-pesisir-air.jpg</div><div style="font-size:10px;color:var(--ink3)">2.4 MB · Klik untuk ganti</div>';
-}
-
-function toggleReadMode(){document.body.classList.toggle('reading-mode')}
-
-function copyLink(){
-  navigator.clipboard.writeText('https://ruangwarta.id/artikel/krisis-air-pesisir-selatan').catch(()=>{});
-  alert('✓ Tautan artikel disalin!');
-}
-
-function subscribeNL(){
-  const e=document.getElementById('nlEmail');
-  if(e.value){alert('✓ Terima kasih! Kamu sudah berlangganan RuangWarta Newsletter.');e.value='';}
-  else alert('Masukkan alamat email kamu terlebih dahulu.');
-}
-
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch()});
-</script>
+<!-- Scripts: load order matters (credentials → data → auth → app) -->
+<script src="config/credentials.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
 </html>
+
