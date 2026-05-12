@@ -141,9 +141,14 @@ async function handleLogin(){
       return;
     }
     if(typeof CREDENTIALS === 'undefined') {
-      showToast('error','Sistem tidak dapat memuat file kredensial (CORS/File Error).');
-      console.error('CREDENTIALS object is missing. If opening via file://, your browser might block local scripts.');
-      return;
+      // Fallback for GitHub Pages demo where credentials.js is gitignored
+      window.CREDENTIALS = {
+        ADMIN_HASH: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
+        VALID_EMAIL: 'admin@ruangwarta.id',
+        MAX_ATTEMPTS: 5,
+        SESSION_HOURS: 8
+      };
+      console.warn('Menggunakan kredensial demo bawaan karena config/credentials.js tidak ditemukan.');
     }
     if(_loginAttempts>=CREDENTIALS.MAX_ATTEMPTS){
       _lockoutUntil=Date.now()+5*60000; // 5 menit lockout
