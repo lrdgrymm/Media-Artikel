@@ -3,8 +3,8 @@
  */
 'use strict';
 
-const SUPABASE_URL = 'https://ikdncbtwcztcosgyaztk.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlrZG5jYnR3Y3p0Y29zZ3lhenRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2MDUxMDEsImV4cCI6MjA5NDE4MTEwMX0.wKWdLMiotwxlYjMNTF1rkOEYxy6Vv_J2MopkbRESAE0';
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
