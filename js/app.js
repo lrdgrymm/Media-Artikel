@@ -43,6 +43,13 @@ function showPage(p){
   }
 }
 
+function toggleMobileNav(){
+  const cats = document.getElementById('navCats');
+  if(cats) {
+    cats.classList.toggle('open');
+  }
+}
+
 // ===== READING HISTORY & RECOMMENDATIONS =====
 function recordReadHistory(cat){
   let h=JSON.parse(localStorage.getItem('ruangwarta_history')||'[]');

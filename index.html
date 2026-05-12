@@ -40,7 +40,8 @@
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-logo" style="cursor:pointer" onclick="showPage('home')">Ruang<span>Warta</span></div>
-    <div class="nav-cats">
+    <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-cats" id="navCats">
       <div class="nav-cat active" onclick="showCat('Berita')">Berita</div>
       <div class="nav-cat" onclick="showCat('Opini')">Opini</div>
       <div class="nav-cat" onclick="showCat('Budaya')">Budaya</div>

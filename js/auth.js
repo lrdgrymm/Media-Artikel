@@ -2,7 +2,7 @@
  * RuangWarta - Authentication & Security Module
  * ===============================================
  * Menggunakan Web Crypto API (SHA-256) untuk hashing.
- * Cookie session dengan SameSite=Strict & Secure flags.
+ * Session management dengan localStorage (fallback) + cookie.
  * Rate limiting untuk mencegah brute force.
  */
 'use strict';
@@ -26,28 +26,63 @@ async function generateToken(email){
   return await sha256(email+'|'+ts+'|'+randHex);
 }
 
-// ===== COOKIE MANAGEMENT =====
-function setSecureCookie(name,val,hours){
-  const d=new Date();d.setTime(d.getTime()+hours*3600000);
-  document.cookie=name+'='+encodeURIComponent(val)+';expires='+d.toUTCString()+';path=/;SameSite=Strict;Secure';
+// ===== SESSION MANAGEMENT =====
+// Uses localStorage as primary (works on file://), cookie as secondary
+const _sessionKey='rw_session';
+const _userKey='rw_user';
+const _csrfKey='rw_csrf';
+const _expiryKey='rw_expiry';
+
+function setSession(token,email,csrf,hours){
+  const expiry=Date.now()+hours*3600000;
+  localStorage.setItem(_sessionKey,token);
+  localStorage.setItem(_userKey,email);
+  localStorage.setItem(_csrfKey,csrf);
+  localStorage.setItem(_expiryKey,expiry.toString());
+  // Also set cookie for server-side compatibility
+  try{
+    const d=new Date(expiry);
+    document.cookie=_sessionKey+'='+encodeURIComponent(token)+';expires='+d.toUTCString()+';path=/;SameSite=Strict';
+  }catch(e){}
 }
 
-function getCookie(name){
-  const v=document.cookie.match('(^|;)\\s*'+name+'=([^;]*)');
-  return v?decodeURIComponent(v[2]):null;
+function getSession(){
+  const expiry=localStorage.getItem(_expiryKey);
+  if(expiry&&Date.now()>parseInt(expiry)){
+    clearSession();
+    return null;
+  }
+  return localStorage.getItem(_sessionKey);
 }
 
-function deleteCookie(name){
-  document.cookie=name+'=;expires=Thu,01 Jan 1970 00:00:00 GMT;path=/;SameSite=Strict';
+function clearSession(){
+  localStorage.removeItem(_sessionKey);
+  localStorage.removeItem(_userKey);
+  localStorage.removeItem(_csrfKey);
+  localStorage.removeItem(_expiryKey);
+  try{
+    document.cookie=_sessionKey+'=;expires=Thu,01 Jan 1970 00:00:00 GMT;path=/;SameSite=Strict';
+  }catch(e){}
 }
 
 // ===== LOGIN HANDLER =====
 let _loginAttempts=0;
+let _lockoutUntil=0;
 
 async function handleLogin(){
-  if(_loginAttempts>=CREDENTIALS.MAX_ATTEMPTS){
-    showToast('error','Terlalu banyak percobaan. Coba lagi dalam 5 menit.');return;
+  // Check lockout
+  if(Date.now()<_lockoutUntil){
+    const remaining=Math.ceil((_lockoutUntil-Date.now())/60000);
+    showToast('error','Terlalu banyak percobaan. Tunggu '+remaining+' menit.');
+    return;
   }
+  if(_loginAttempts>=CREDENTIALS.MAX_ATTEMPTS){
+    _lockoutUntil=Date.now()+5*60000; // 5 menit lockout
+    _loginAttempts=0;
+    showToast('error','Akun terkunci selama 5 menit.');
+    return;
+  }
+
   const email=document.getElementById('loginEmail').value.trim();
   const pass=document.getElementById('loginPassword').value;
   const errEl=document.getElementById('loginError');
@@ -60,35 +95,34 @@ async function handleLogin(){
   if(email===CREDENTIALS.VALID_EMAIL&&passHash===CREDENTIALS.ADMIN_HASH){
     _loginAttempts=0;errEl.classList.remove('show');
     const token=await generateToken(email);
-    const prefix=CREDENTIALS.COOKIE_PREFIX;
-    const hours=CREDENTIALS.SESSION_HOURS;
-    setSecureCookie(prefix+'session',token,hours);
-    setSecureCookie(prefix+'user',email,hours);
-    setSecureCookie(prefix+'csrf',await sha256(token+navigator.userAgent),hours);
+    const csrf=await sha256(token+navigator.userAgent);
+    setSession(token,email,csrf,CREDENTIALS.SESSION_HOURS);
+    document.getElementById('navAdminBtn').textContent='Panel';
     showToast('success','Login berhasil! Selamat datang.');
     showPage('admin');
   } else {
     _loginAttempts++;
-    errEl.textContent='Email atau kata sandi salah. ('+_loginAttempts+'/'+CREDENTIALS.MAX_ATTEMPTS+')';
+    const left=CREDENTIALS.MAX_ATTEMPTS-_loginAttempts;
+    errEl.textContent='Email atau kata sandi salah. ('+left+' percobaan tersisa)';
     errEl.classList.add('show');
     showToast('error','Kredensial tidak valid.');
   }
 }
 
 function handleAdminNav(){
-  if(getCookie(CREDENTIALS.COOKIE_PREFIX+'session')){showPage('admin');}
+  if(getSession()){showPage('admin');}
   else{showPage('login');}
 }
 
 function handleLogout(){
   openModal('Keluar','Apakah Anda yakin ingin keluar dari Panel Redaksi?',()=>{
-    const prefix=CREDENTIALS.COOKIE_PREFIX;
-    deleteCookie(prefix+'session');deleteCookie(prefix+'user');deleteCookie(prefix+'csrf');
+    clearSession();
     document.getElementById('navAdminBtn').textContent='Admin';
-    showToast('success','Anda telah keluar.');showPage('home');
+    showToast('success','Anda telah keluar.');
+    showPage('home');
   });
 }
 
 function isLoggedIn(){
-  return !!getCookie(CREDENTIALS.COOKIE_PREFIX+'session');
+  return !!getSession();
 }
