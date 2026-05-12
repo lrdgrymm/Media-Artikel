@@ -1,0 +1,1121 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0f0f0f;--ink2:#3a3a3a;--ink3:#7a7a7a;
+  --cream:#faf8f4;--white:#ffffff;
+  --brick:#b5341a;--brick-light:#f5ece9;
+  --border:#e2dfd8;--border-dark:#c8c4bc;
+  --sans:'DM Sans',sans-serif;
+  --serif:'Source Serif 4',Georgia,serif;
+  --display:'Playfair Display',Georgia,serif;
+  --nav-h:60px;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:16px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--sans)}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:2px solid var(--ink);height:var(--nav-h)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:0}
+.nav-logo{font-family:var(--display);font-size:22px;font-weight:900;letter-spacing:-0.5px;color:var(--ink);flex-shrink:0}
+.nav-logo span{color:var(--brick)}
+.nav-cats{display:flex;align-items:center;gap:0;flex:1;padding-left:32px;overflow:hidden}
+.nav-cat{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink2);padding:0 14px;height:var(--nav-h);display:flex;align-items:center;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;cursor:pointer}
+.nav-cat:hover,.nav-cat.active{color:var(--brick);border-bottom-color:var(--brick)}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.nav-btn{font-size:12px;font-weight:600;letter-spacing:0.05em;padding:7px 16px;border-radius:2px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);transition:all .15s}
+.nav-btn:hover{background:var(--ink);color:var(--white)}
+.nav-btn.admin{background:var(--brick);border-color:var(--brick);color:var(--white)}
+.nav-btn.admin:hover{opacity:0.85}
+
+/* PAGE SYSTEM */
+.page{display:none;min-height:calc(100vh - var(--nav-h));animation:fadeIn .25s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* HOMEPAGE */
+.home-wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 320px;gap:0;border:2px solid var(--ink);margin-bottom:48px}
+.hero-main{position:relative;overflow:hidden;cursor:pointer}
+.hero-img{width:100%;height:440px;object-fit:cover;display:block;background:linear-gradient(135deg,#2d2d2d 0%,#4a3728 50%,#2d4a3a 100%)}
+.hero-img-placeholder{width:100%;height:440px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);position:relative;display:flex;align-items:flex-end}
+.hero-img-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:40px 32px 32px}
+.hero-cat-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;background:var(--brick);color:var(--white);padding:4px 10px;margin-bottom:12px}
+.hero-title{font-family:var(--display);font-size:32px;font-weight:900;color:var(--white);line-height:1.2;margin-bottom:10px}
+.hero-meta{font-size:12px;color:rgba(255,255,255,0.65);display:flex;gap:16px}
+.hero-sidebar{border-left:2px solid var(--ink);display:flex;flex-direction:column}
+.hero-side-item{padding:20px;border-bottom:1.5px solid var(--border);cursor:pointer;transition:background .12s;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.hero-side-item:last-child{border-bottom:none}
+.hero-side-item:hover{background:#f5f5f3}
+.side-cat{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--brick);margin-bottom:8px}
+.side-title{font-family:var(--display);font-size:16px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:8px}
+.side-meta{font-size:11px;color:var(--ink3)}
+
+/* SECTION HEADERS */
+.sec-header{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.sec-title{font-family:var(--display);font-size:20px;font-weight:900;letter-spacing:-0.3px}
+.sec-link{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--brick);margin-left:auto;cursor:pointer}
+.sec-link:hover{text-decoration:underline}
+
+/* ARTICLE GRID */
+.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:56px}
+.article-card{cursor:pointer;transition:opacity .15s}
+.article-card:hover{opacity:.82}
+.card-img{width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#2a2a3a,#3a2a2a);margin-bottom:14px;overflow:hidden;position:relative}
+.card-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px}
+.card-cat{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--brick);margin-bottom:6px}
+.card-title{font-family:var(--display);font-size:18px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:10px}
+.card-excerpt{font-family:var(--serif);font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{font-size:11px;color:var(--ink3);display:flex;gap:12px;align-items:center}
+.card-dot{width:3px;height:3px;border-radius:50%;background:var(--ink3)}
+
+/* TWO COLUMN LAYOUT */
+.two-col{display:grid;grid-template-columns:1fr 300px;gap:48px;margin-bottom:56px}
+.opinion-list{display:flex;flex-direction:column;gap:0}
+.opinion-item{display:grid;grid-template-columns:60px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;align-items:start}
+.opinion-item:first-child{padding-top:0}
+.opinion-item:hover .opinion-title{color:var(--brick)}
+.opinion-num{font-family:var(--display);font-size:36px;font-weight:900;color:var(--border-dark);line-height:1}
+.opinion-cat{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);margin-bottom:5px}
+.opinion-title{font-family:var(--display);font-size:17px;font-weight:700;line-height:1.3;margin-bottom:6px;transition:color .12s}
+.opinion-author{font-size:11px;color:var(--ink3)}
+
+/* SIDEBAR */
+.sidebar-box{background:var(--white);border:1.5px solid var(--border);padding:20px;margin-bottom:24px}
+.sidebar-box-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--border)}
+.pop-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;align-items:start}
+.pop-item:last-child{border-bottom:none;padding-bottom:0}
+.pop-num{font-family:var(--display);font-size:20px;font-weight:900;color:var(--brick);min-width:24px;line-height:1.1}
+.pop-title{font-family:var(--serif);font-size:13px;line-height:1.4;color:var(--ink)}
+.pop-item:hover .pop-title{color:var(--brick)}
+.nl-box{background:var(--ink);color:var(--white);padding:24px}
+.nl-title{font-family:var(--display);font-size:18px;font-weight:900;margin-bottom:8px}
+.nl-desc{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:16px;line-height:1.5}
+.nl-input{width:100%;padding:9px 12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:var(--white);font-family:var(--sans);font-size:13px;margin-bottom:10px;outline:none;border-radius:2px}
+.nl-input::placeholder{color:rgba(255,255,255,.4)}
+.nl-btn{width:100%;padding:9px;background:var(--brick);color:var(--white);border:none;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-radius:2px}
+.nl-btn:hover{opacity:.85}
+
+/* CAT STRIP */
+.cat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:2px solid var(--ink);margin-bottom:56px;overflow:hidden}
+.cat-box{padding:28px 24px;border-right:2px solid var(--ink);cursor:pointer;transition:background .15s;position:relative}
+.cat-box:last-child{border-right:none}
+.cat-box:hover{background:var(--brick);color:var(--white)}
+.cat-box:hover .cat-box-name,.cat-box:hover .cat-box-count{color:var(--white)}
+.cat-box-name{font-family:var(--display);font-size:18px;font-weight:900;margin-bottom:4px;transition:color .15s}
+.cat-box-count{font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--ink3);transition:color .15s}
+.cat-box-icon{font-size:28px;margin-bottom:12px}
+
+/* ARTICLE DETAIL */
+.article-detail{max-width:760px;margin:0 auto;padding:48px 24px}
+.article-detail-wide{max-width:1200px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1fr 280px;gap:56px}
+.article-breadcrumb{font-size:12px;color:var(--ink3);margin-bottom:24px;display:flex;gap:8px;align-items:center}
+.article-breadcrumb span{color:var(--brick)}
+.article-cat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brick);margin-bottom:14px}
+.article-headline{font-family:var(--display);font-size:42px;font-weight:900;line-height:1.15;letter-spacing:-0.5px;margin-bottom:20px}
+.article-lede{font-family:var(--serif);font-size:19px;color:var(--ink2);line-height:1.7;margin-bottom:28px;font-style:italic}
+.article-byline{display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:32px}
+.byline-avatar{width:40px;height:40px;border-radius:50%;background:var(--brick);display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-size:14px}
+.byline-name{font-size:14px;font-weight:600}
+.byline-date{font-size:12px;color:var(--ink3)}
+.byline-read{font-size:12px;color:var(--ink3);margin-left:auto}
+.article-hero-img{width:100%;height:400px;background:linear-gradient(135deg,#1a1a2e,#16213e);margin-bottom:12px}
+.article-img-caption{font-size:12px;color:var(--ink3);margin-bottom:36px;font-style:italic}
+.article-body{font-family:var(--serif);font-size:18px;line-height:1.8;color:var(--ink2)}
+.article-body p{margin-bottom:24px}
+.article-body h2{font-family:var(--display);font-size:24px;font-weight:900;color:var(--ink);margin:36px 0 16px;line-height:1.2}
+.article-body blockquote{border-left:4px solid var(--brick);padding:16px 20px;margin:32px 0;background:var(--brick-light);font-style:italic;font-size:19px;color:var(--ink)}
+.article-tags{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0;padding:24px 0;border-top:1.5px solid var(--border)}
+.tag{font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 12px;border:1.5px solid var(--border-dark);color:var(--ink2);border-radius:2px;cursor:pointer}
+.tag:hover{border-color:var(--brick);color:var(--brick)}
+.share-row{display:flex;gap:10px;margin-bottom:32px;align-items:center}
+.share-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.share-btn{font-size:12px;font-weight:600;padding:7px 14px;border:1.5px solid var(--border-dark);background:transparent;color:var(--ink2);border-radius:2px;transition:all .15s}
+.share-btn:hover{border-color:var(--ink);color:var(--ink)}
+.share-btn.wa:hover{border-color:#25d366;color:#25d366}
+.share-btn.fb:hover{border-color:#1877f2;color:#1877f2}
+
+/* ADMIN */
+.admin-wrap{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - var(--nav-h));background:#f5f5f3}
+.admin-sidebar{background:var(--ink);color:var(--white);padding:0;position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto}
+.admin-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.12);font-family:var(--display);font-size:16px;font-weight:900}
+.admin-logo span{color:var(--brick)}
+.admin-nav-section{padding:16px 0 8px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);padding-left:20px}
+.admin-nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);cursor:pointer;transition:all .12s;border-left:3px solid transparent}
+.admin-nav-item:hover{background:rgba(255,255,255,.07);color:var(--white);border-left-color:rgba(255,255,255,.3)}
+.admin-nav-item.active{background:rgba(181,52,26,.15);color:var(--white);border-left-color:var(--brick)}
+.admin-nav-item svg{width:16px;height:16px;opacity:.7;flex-shrink:0}
+.admin-nav-item.active svg{opacity:1}
+.admin-main{padding:32px;overflow-y:auto}
+.admin-page{display:none}
+.admin-page.active{display:block}
+
+/* DASHBOARD STATS */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--white);border:1.5px solid var(--border);padding:20px 24px;border-radius:2px}
+.stat-num{font-family:var(--display);font-size:36px;font-weight:900;line-height:1;margin-bottom:4px}
+.stat-num.brick{color:var(--brick)}
+.stat-label{font-size:12px;color:var(--ink3);font-weight:500;letter-spacing:.03em}
+.stat-change{font-size:11px;color:#1a7a3f;font-weight:600;margin-top:8px}
+
+.admin-section-title{font-family:var(--display);font-size:22px;font-weight:900;margin-bottom:24px;color:var(--ink)}
+.admin-card{background:var(--white);border:1.5px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:24px}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px}
+.admin-table th{text-align:left;padding:12px 16px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);border-bottom:1.5px solid var(--border);background:#f9f9f8}
+.admin-table td{padding:14px 16px;border-bottom:1px solid var(--border);color:var(--ink2);vertical-align:middle}
+.admin-table tr:last-child td{border-bottom:none}
+.admin-table tr:hover td{background:#faf8f4}
+.status-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.status-pill.published{background:#e2f4ea;color:#1a7a3f}
+.status-pill.draft{background:#f0f0ee;color:#5a5a5a}
+.status-pill.review{background:#fff3e0;color:#b45309}
+.admin-action-btn{font-size:11px;font-weight:600;padding:5px 10px;border:1.5px solid var(--border-dark);background:transparent;color:var(--ink2);border-radius:2px;cursor:pointer;transition:all .12s;margin-right:4px}
+.admin-action-btn:hover{border-color:var(--brick);color:var(--brick)}
+.admin-top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.admin-primary-btn{padding:9px 20px;background:var(--brick);color:var(--white);border:none;font-weight:700;font-size:13px;border-radius:2px;cursor:pointer;transition:opacity .12s;letter-spacing:.02em}
+.admin-primary-btn:hover{opacity:.85}
+
+/* ARTICLE EDITOR */
+.editor-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:2px;overflow:hidden}
+.editor-toolbar{padding:12px 16px;border-bottom:1.5px solid var(--border);display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:#f9f9f8}
+.editor-tool{padding:5px 10px;border:1.5px solid var(--border-dark);background:transparent;border-radius:2px;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink2)}
+.editor-tool:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.editor-body{min-height:320px;padding:24px;font-family:var(--serif);font-size:17px;line-height:1.8;color:var(--ink2);outline:none;border:none;width:100%;resize:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.form-input{width:100%;padding:9px 12px;border:1.5px solid var(--border);background:var(--white);font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;border-radius:2px;transition:border-color .12s}
+.form-input:focus{border-color:var(--ink)}
+.form-select{width:100%;padding:9px 12px;border:1.5px solid var(--border);background:var(--white);font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;border-radius:2px;appearance:none}
+.ai-assist-bar{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:var(--white);padding:16px 20px;margin:0 0 20px;border-radius:2px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.ai-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-right:4px}
+.ai-btn{font-size:11px;font-weight:600;padding:6px 12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:var(--white);border-radius:2px;cursor:pointer;transition:all .15s}
+.ai-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+.ai-result{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;padding:12px;margin-top:10px;font-size:13px;line-height:1.6;font-style:italic;display:none;width:100%}
+
+/* LOGIN */
+.login-wrap{max-width:420px;margin:80px auto;padding:0 24px}
+.login-box{background:var(--white);border:2px solid var(--ink);padding:40px}
+.login-header{margin-bottom:32px}
+.login-logo{font-family:var(--display);font-size:24px;font-weight:900;margin-bottom:8px}
+.login-logo span{color:var(--brick)}
+.login-desc{font-size:13px;color:var(--ink3)}
+
+/* FOOTER */
+.footer{background:var(--ink);color:rgba(255,255,255,.7);margin-top:80px}
+.footer-top{max-width:1200px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+.footer-brand{font-family:var(--display);font-size:22px;font-weight:900;color:var(--white);margin-bottom:12px}
+.footer-brand span{color:var(--brick)}
+.footer-desc{font-size:13px;line-height:1.7;margin-bottom:20px}
+.footer-tagline{font-size:11px;font-style:italic;color:rgba(255,255,255,.4);letter-spacing:.05em}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;cursor:pointer;transition:color .12s}
+.footer-link:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.35)}
+
+/* SEARCH */
+.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;display:none}
+.search-overlay.open{display:flex}
+.search-box{background:var(--white);width:100%;max-width:680px;border:2px solid var(--ink);padding:24px}
+.search-input{width:100%;font-family:var(--display);font-size:28px;font-weight:900;border:none;outline:none;color:var(--ink);padding:0;margin-bottom:16px}
+.search-results{display:flex;flex-direction:column;gap:0}
+.search-result-item{padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.search-result-item:hover .sr-title{color:var(--brick)}
+.sr-cat{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);margin-bottom:4px}
+.sr-title{font-family:var(--display);font-size:16px;font-weight:700;transition:color .12s}
+
+/* READING MODE */
+.read-mode-btn{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 12px;border:1.5px solid var(--border-dark);background:var(--white);border-radius:2px;cursor:pointer}
+.read-mode-btn:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+body.reading-mode .article-detail-wide{max-width:760px;grid-template-columns:1fr}
+body.reading-mode .article-aside{display:none}
+body.reading-mode .article-body{font-size:20px;line-height:1.9}
+
+/* CATEGORY PAGE */
+.cat-page{max-width:1200px;margin:0 auto;padding:48px 24px}
+.cat-page-header{margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid var(--ink)}
+.cat-page-name{font-family:var(--display);font-size:48px;font-weight:900;letter-spacing:-1px;line-height:1}
+.cat-page-desc{font-size:15px;color:var(--ink2);margin-top:12px;font-family:var(--serif)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}.hero-sidebar{border-left:none;border-top:2px solid var(--ink)}
+  .article-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col,.article-detail-wide{grid-template-columns:1fr}
+  .article-aside{display:none}
+  .cat-strip{grid-template-columns:repeat(2,1fr)}
+  .admin-wrap{grid-template-columns:1fr}
+  .admin-sidebar{position:static;height:auto}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .article-grid{grid-template-columns:1fr}
+  .hero-title{font-size:24px}
+  .article-headline{font-size:28px}
+  .form-row{grid-template-columns:1fr}
+  .nav-cats{display:none}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-box">
+    <input class="search-input" id="searchInput" placeholder="Cari artikel..." oninput="doSearch(this.value)">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo" style="cursor:pointer" onclick="showPage('home')">Ruang<span>Warta</span></div>
+    <div class="nav-cats">
+      <div class="nav-cat active" onclick="showCat('Berita')">Berita</div>
+      <div class="nav-cat" onclick="showCat('Opini')">Opini</div>
+      <div class="nav-cat" onclick="showCat('Budaya')">Budaya</div>
+      <div class="nav-cat" onclick="showCat('Komunitas')">Komunitas</div>
+      <div class="nav-cat" onclick="showCat('Lingkungan')">Lingkungan</div>
+      <div class="nav-cat" onclick="showCat('Pendidikan')">Pendidikan</div>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn" onclick="openSearch()">⌕ Cari</button>
+      <button class="nav-btn admin" onclick="showPage('admin')">Admin</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HOME PAGE ========== -->
+<div class="page active" id="page-home">
+  <div class="home-wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-main" onclick="showArticle('featured')">
+        <div class="hero-img-placeholder">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0d1b2a 0%,#1b4332 50%,#0d1b2a 100%);display:flex;align-items:center;justify-content:center">
+            <svg width="120" height="80" viewBox="0 0 120 80" fill="none" opacity="0.15">
+              <rect x="10" y="20" width="100" height="6" rx="3" fill="white"/>
+              <rect x="10" y="34" width="80" height="4" rx="2" fill="white"/>
+              <rect x="10" y="46" width="90" height="4" rx="2" fill="white"/>
+              <rect x="10" y="58" width="60" height="4" rx="2" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="hero-img-text">
+          <div class="hero-cat-badge">Pilihan Editor</div>
+          <div class="hero-title">Krisis Air di Pesisir Selatan: Ketika Warga Harus Pilih Antara Minum dan Mandi</div>
+          <div class="hero-meta">
+            <span>Sari Dewanti</span>
+            <span>14 Mei 2025</span>
+            <span>8 menit baca</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-sidebar">
+        <div class="hero-side-item" onclick="showArticle('a2')">
+          <div>
+            <div class="side-cat">Komunitas</div>
+            <div class="side-title">Pasar Tradisional Terakhir di Pusat Kota Hadapi Ancaman Pembangunan Mall</div>
+          </div>
+          <div class="side-meta">Adi Pratama · 3 jam lalu</div>
+        </div>
+        <div class="hero-side-item" onclick="showArticle('a3')">
+          <div>
+            <div class="side-cat">Pendidikan</div>
+            <div class="side-title">Sekolah Satu Atap di Perbatasan: Satu Guru untuk Enam Kelas</div>
+          </div>
+          <div class="side-meta">Lilis Handayani · 6 jam lalu</div>
+        </div>
+        <div class="hero-side-item" onclick="showArticle('a4')">
+          <div>
+            <div class="side-cat">Opini</div>
+            <div class="side-title">Mengapa Subsidi Bahan Bakar Bukan Solusi Energi Jangka Panjang</div>
+          </div>
+          <div class="side-meta">Prof. Budi Santoso · 9 jam lalu</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERBARU -->
+    <div class="sec-header">
+      <div class="sec-title">Terbaru</div>
+      <div class="sec-link" onclick="showCat('Berita')">Lihat Semua →</div>
+    </div>
+    <div class="article-grid">
+      <div class="article-card" onclick="showArticle('a5')">
+        <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#1b4332,#40916c)">🌿</div></div>
+        <div class="card-cat">Lingkungan</div>
+        <div class="card-title">Hutan Mangrove Terancam: 40% Kawasan Pesisir Rusak Akibat Tambak Ilegal</div>
+        <div class="card-excerpt">Riset terbaru dari Universitas Maritim menunjukkan kerusakan yang lebih parah dari perkiraan sebelumnya.</div>
+        <div class="card-meta"><span>Yanti Kusuma</span><div class="card-dot"></div><span>13 Mei 2025</span><div class="card-dot"></div><span>5 mnt</span></div>
+      </div>
+      <div class="article-card" onclick="showArticle('a6')">
+        <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#312e81,#4c1d95)">🏛️</div></div>
+        <div class="card-cat">Berita</div>
+        <div class="card-title">DPRD Kota Gelar Rapat Darurat Soal Anggaran Infrastruktur yang Tersendat</div>
+        <div class="card-excerpt">Sembilan proyek pembangunan jalan terpaksa dihentikan sementara menunggu pencairan dana.</div>
+        <div class="card-meta"><span>Rahmat Hakim</span><div class="card-dot"></div><span>12 Mei 2025</span><div class="card-dot"></div><span>4 mnt</span></div>
+      </div>
+      <div class="article-card" onclick="showArticle('a7')">
+        <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#7c2d12,#c2410c)">🎭</div></div>
+        <div class="card-cat">Budaya</div>
+        <div class="card-title">Festival Seni Lokal Kembali Hadir: Puluhan Seniman Muda Pamerkan Karyanya</div>
+        <div class="card-excerpt">Setelah tiga tahun absen, festival ini kembali menghidupkan ekosistem seni rupa komunitas lokal.</div>
+        <div class="card-meta"><span>Dewi Anggraini</span><div class="card-dot"></div><span>12 Mei 2025</span><div class="card-dot"></div><span>6 mnt</span></div>
+      </div>
+    </div>
+
+    <!-- OPINI + SIDEBAR -->
+    <div class="two-col">
+      <div>
+        <div class="sec-header">
+          <div class="sec-title">Ruang Opini</div>
+          <div class="sec-link">Lihat Semua →</div>
+        </div>
+        <div class="opinion-list">
+          <div class="opinion-item" onclick="showArticle('op1')">
+            <div class="opinion-num">01</div>
+            <div>
+              <div class="opinion-cat">Opini</div>
+              <div class="opinion-title">Kota Pintar tanpa Warga Cerdas: Ironi Digitalisasi yang Tak Merata</div>
+              <div class="opinion-author">oleh Mirna Sanjaya, Peneliti Kebijakan Publik</div>
+            </div>
+          </div>
+          <div class="opinion-item" onclick="showArticle('op2')">
+            <div class="opinion-num">02</div>
+            <div>
+              <div class="opinion-cat">Esai</div>
+              <div class="opinion-title">Belajar dari Desa: Kenapa Kota Justru Perlu Meniru Gotong Royong</div>
+              <div class="opinion-author">oleh Hendra Wijaya, Sosiolog</div>
+            </div>
+          </div>
+          <div class="opinion-item" onclick="showArticle('op3')">
+            <div class="opinion-num">03</div>
+            <div>
+              <div class="opinion-cat">Opini</div>
+              <div class="opinion-title">Media Lokal di Titik Kritis: Antara Bertahan dan Bermartabat</div>
+              <div class="opinion-author">oleh Fitri Amaliah, Jurnalis</div>
+            </div>
+          </div>
+          <div class="opinion-item" onclick="showArticle('op4')">
+            <div class="opinion-num">04</div>
+            <div>
+              <div class="opinion-cat">Esai</div>
+              <div class="opinion-title">Ruang Publik yang Kita Rindukan: Taman Kota bukan untuk Warga</div>
+              <div class="opinion-author">oleh Ahmad Fauzan, Arsitek</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Artikel Populer</div>
+          <div class="pop-item" onclick="showArticle('featured')">
+            <div class="pop-num">1</div>
+            <div class="pop-title">Krisis Air di Pesisir Selatan: Ketika Warga Harus Pilih</div>
+          </div>
+          <div class="pop-item" onclick="showArticle('a7')">
+            <div class="pop-num">2</div>
+            <div class="pop-title">Festival Seni Lokal Kembali Hadir: Puluhan Seniman Muda</div>
+          </div>
+          <div class="pop-item" onclick="showArticle('op1')">
+            <div class="pop-num">3</div>
+            <div class="pop-title">Kota Pintar tanpa Warga Cerdas: Ironi Digitalisasi</div>
+          </div>
+          <div class="pop-item" onclick="showArticle('a5')">
+            <div class="pop-num">4</div>
+            <div class="pop-title">Hutan Mangrove Terancam: 40% Kawasan Pesisir Rusak</div>
+          </div>
+          <div class="pop-item" onclick="showArticle('a2')">
+            <div class="pop-num">5</div>
+            <div class="pop-title">Pasar Tradisional Terakhir di Pusat Kota Hadapi Ancaman</div>
+          </div>
+        </div>
+        <div class="nl-box">
+          <div class="nl-title">Newsletter RuangWarta</div>
+          <div class="nl-desc">Cerita terpilih langsung ke kotak masuk kamu, setiap minggu.</div>
+          <input class="nl-input" type="email" placeholder="email kamu@sini.com" id="nlEmail">
+          <button class="nl-btn" onclick="subscribeNL()">Langganan Gratis</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- KATEGORI STRIP -->
+    <div class="sec-header"><div class="sec-title">Jelajahi Kategori</div></div>
+    <div class="cat-strip">
+      <div class="cat-box" onclick="showCat('Berita')"><div class="cat-box-icon">📰</div><div class="cat-box-name">Berita</div><div class="cat-box-count">124 artikel</div></div>
+      <div class="cat-box" onclick="showCat('Budaya')"><div class="cat-box-icon">🎭</div><div class="cat-box-name">Budaya</div><div class="cat-box-count">87 artikel</div></div>
+      <div class="cat-box" onclick="showCat('Komunitas')"><div class="cat-box-icon">🤝</div><div class="cat-box-name">Komunitas</div><div class="cat-box-count">62 artikel</div></div>
+      <div class="cat-box" onclick="showCat('Lingkungan')"><div class="cat-box-icon">🌿</div><div class="cat-box-name">Lingkungan</div><div class="cat-box-count">58 artikel</div></div>
+    </div>
+
+    <!-- LIPUTAN WARGA -->
+    <div class="sec-header">
+      <div class="sec-title">Liputan Warga</div>
+      <div class="sec-link">Lihat Semua →</div>
+    </div>
+    <div class="article-grid">
+      <div class="article-card" onclick="showArticle('lw1')">
+        <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#065f46,#047857)">🌾</div></div>
+        <div class="card-cat">Liputan Warga</div>
+        <div class="card-title">Kisah Bu Siti: Bertahan Jadi Petani Garam di Tengah Gempuran Impor</div>
+        <div class="card-excerpt">Tiga generasi keluarga Siti bergantung pada ladang garam yang kini terancam kebijakan impor.</div>
+        <div class="card-meta"><span>Kontributor Lokal</span><div class="card-dot"></div><span>10 Mei 2025</span></div>
+      </div>
+      <div class="article-card" onclick="showArticle('lw2')">
+        <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#1e3a5f,#2d6a9f)">🏘️</div></div>
+        <div class="card-cat">Liputan Warga</div>
+        <div class="card-title">Kampung Digital: Ketika Ibu-Ibu PKK Belajar Jualan Online dari Nol</div>
+        <div class="card-excerpt">Program pelatihan ekonomi digital membawa perubahan nyata di kampung terpencil ini.</div>
+        <div class="card-meta"><span>Kontributor Lokal</span><div class="card-dot"></div><span>9 Mei 2025</span></div>
+      </div>
+      <div class="article-card" onclick="showArticle('lw3')">
+        <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#4a1942,#7b2d72)">🎓</div></div>
+        <div class="card-cat">Liputan Warga</div>
+        <div class="card-title">Perpustakaan Keliling di Desa: Satu Motor, Ratusan Buku, Ribuan Mimpi</div>
+        <div class="card-excerpt">Pak Darmawan sudah 12 tahun membawa buku ke pelosok desa dengan motor tuanya.</div>
+        <div class="card-meta"><span>Kontributor Lokal</span><div class="card-dot"></div><span>8 Mei 2025</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Ruang<span>Warta</span>.id</div>
+        <div class="footer-desc">Media digital independen yang menghadirkan berita, opini, esai, dan cerita warga dengan pendekatan yang jernih, humanis, dan dekat dengan kehidupan masyarakat.</div>
+        <div class="footer-tagline">Membaca Warga, Merawat Cerita</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Rubrik</div>
+        <div class="footer-link" onclick="showCat('Berita')">Berita</div>
+        <div class="footer-link" onclick="showCat('Opini')">Opini</div>
+        <div class="footer-link" onclick="showCat('Budaya')">Budaya</div>
+        <div class="footer-link" onclick="showCat('Komunitas')">Komunitas</div>
+        <div class="footer-link" onclick="showCat('Lingkungan')">Lingkungan</div>
+        <div class="footer-link" onclick="showCat('Liputan Warga')">Liputan Warga</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Media</div>
+        <div class="footer-link">Tentang Kami</div>
+        <div class="footer-link">Redaksi</div>
+        <div class="footer-link">Pedoman Media Siber</div>
+        <div class="footer-link">Kebijakan Privasi</div>
+        <div class="footer-link">Kirim Tulisan</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Ikuti Kami</div>
+        <div class="footer-link">Instagram</div>
+        <div class="footer-link">X / Twitter</div>
+        <div class="footer-link">YouTube</div>
+        <div class="footer-link">Telegram</div>
+        <div class="footer-col-title" style="margin-top:16px">Kontak</div>
+        <div class="footer-link">redaksi@ruangwarta.id</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 RuangWarta.id · Media Digital Independen</span>
+      <span>Dibuat dengan ❤ untuk warga</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ========== ARTICLE PAGE ========== -->
+<div class="page" id="page-article">
+  <div class="article-detail-wide">
+    <div>
+      <div class="article-breadcrumb">
+        <span style="cursor:pointer" onclick="showPage('home')">Beranda</span>
+        <span>›</span>
+        <span id="article-breadcat" style="cursor:pointer" onclick="showPage('home')">Lingkungan</span>
+        <span>›</span>
+        <span style="color:var(--ink3)">Artikel</span>
+      </div>
+      <div class="article-cat" id="article-cat">Lingkungan</div>
+      <h1 class="article-headline" id="article-title">Krisis Air di Pesisir Selatan</h1>
+      <div class="article-lede" id="article-lede">Ribuan warga di lima kecamatan pesisir kini menghadapi krisis air bersih yang makin parah.</div>
+      <div class="article-byline">
+        <div class="byline-avatar" id="article-avatar">SD</div>
+        <div>
+          <div class="byline-name" id="article-author">Sari Dewanti</div>
+          <div class="byline-date" id="article-date">14 Mei 2025</div>
+        </div>
+        <div class="byline-read" id="article-read">8 menit baca</div>
+        <button class="read-mode-btn" onclick="toggleReadMode()" style="margin-left:12px">
+          <span>📖</span> Mode Baca
+        </button>
+      </div>
+      <div class="article-hero-img" style="background:linear-gradient(135deg,#0d2137,#1a4a6e,#0d2137);display:flex;align-items:center;justify-content:center">
+        <svg width="160" height="100" viewBox="0 0 160 100" fill="none" opacity="0.12">
+          <rect x="20" y="30" width="120" height="8" rx="4" fill="white"/>
+          <rect x="20" y="46" width="95" height="6" rx="3" fill="white"/>
+          <rect x="20" y="60" width="110" height="6" rx="3" fill="white"/>
+          <rect x="20" y="74" width="75" height="6" rx="3" fill="white"/>
+        </svg>
+      </div>
+      <div class="article-img-caption">Foto: Warga desa Pantai Rejo mengambil air dari sumur yang mulai mengering. (Dokumentasi RuangWarta)</div>
+      <div class="share-row">
+        <span class="share-label">Bagikan:</span>
+        <button class="share-btn wa">WhatsApp</button>
+        <button class="share-btn fb">Facebook</button>
+        <button class="share-btn">X / Twitter</button>
+        <button class="share-btn" onclick="copyLink()">Salin Tautan</button>
+      </div>
+      <div class="article-body" id="article-body">
+        <p>Sudah tiga bulan terakhir, Ibu Sumiyati (58) harus bangun pukul empat pagi hanya untuk mendapatkan air. Bukan dari keran rumahnya—sudah lama itu kering—melainkan dari mata air yang jaraknya dua kilometer dari tempat tinggalnya di Dusun Pantai Rejo, Kecamatan Pasir Kidul.</p>
+        <blockquote>"Dulu tinggal buka keran, sekarang harus jalan jauh. Kalau hujan baru ada air, kalau tidak ya begini terus," ujar Sumiyati sambil meletakkan jeriken plastik 20 liter yang baru saja diisinya.</blockquote>
+        <h2>Krisis yang Tak Terdokumentasi</h2>
+        <p>Persoalan yang dialami Sumiyati bukan pengecualian. Di lima kecamatan pesisir yang membentang sepanjang 47 kilometer garis pantai, setidaknya 12.400 kepala keluarga menghadapi masalah yang sama: keterbatasan akses air bersih yang semakin parah dalam dua tahun terakhir.</p>
+        <p>Data yang berhasil dihimpun RuangWarta dari berbagai sumber menunjukkan bahwa debet air di 23 sumur komunal yang tersebar di kawasan ini menurun antara 40 hingga 70 persen dibanding lima tahun lalu. Beberapa sumur bahkan sudah benar-benar kering sejak musim kemarau tahun lalu.</p>
+        <h2>Faktor Penyebab yang Berlapis</h2>
+        <p>Para ahli dan warga sendiri menunjuk pada kombinasi beberapa faktor: perluasan tambak yang menyedot air tanah, deforestasi di kawasan hulu yang mengurangi daya simpan air, hingga peningkatan konsumsi akibat pertumbuhan populasi yang tidak diimbangi investasi infrastruktur air bersih.</p>
+        <p>Ironisnya, kawasan ini secara geografis dikelilingi air—baik laut maupun sungai—namun air yang tersedia tidak dapat dikonsumsi langsung karena tingginya kadar garam dan kontaminasi limbah.</p>
+      </div>
+      <div class="article-tags">
+        <span style="font-size:12px;font-weight:600;color:var(--ink3);margin-right:4px">Tag:</span>
+        <span class="tag">Air Bersih</span>
+        <span class="tag">Pesisir</span>
+        <span class="tag">Lingkungan</span>
+        <span class="tag">Krisis</span>
+        <span class="tag">Warga</span>
+      </div>
+    </div>
+    <div class="article-aside">
+      <div class="sidebar-box" style="position:sticky;top:calc(var(--nav-h) + 24px)">
+        <div class="sidebar-box-title">Artikel Terkait</div>
+        <div class="pop-item" onclick="showArticle('a5')">
+          <div class="pop-num" style="font-size:14px;color:var(--ink3)">→</div>
+          <div class="pop-title">Hutan Mangrove Terancam: 40% Kawasan Pesisir Rusak Akibat Tambak Ilegal</div>
+        </div>
+        <div class="pop-item" onclick="showArticle('lw1')">
+          <div class="pop-num" style="font-size:14px;color:var(--ink3)">→</div>
+          <div class="pop-title">Kisah Bu Siti: Bertahan Jadi Petani Garam di Tengah Gempuran Impor</div>
+        </div>
+        <div class="pop-item" onclick="showArticle('a2')">
+          <div class="pop-num" style="font-size:14px;color:var(--ink3)">→</div>
+          <div class="pop-title">Pasar Tradisional Terakhir di Pusat Kota Hadapi Ancaman Pembangunan</div>
+        </div>
+      </div>
+      <div class="nl-box" style="margin-top:24px">
+        <div class="nl-title">Newsletter</div>
+        <div class="nl-desc">Cerita terpilih tiap minggu.</div>
+        <input class="nl-input" type="email" placeholder="email kamu">
+        <button class="nl-btn">Langganan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CATEGORY PAGE ========== -->
+<div class="page" id="page-category">
+  <div class="cat-page">
+    <div class="cat-page-header">
+      <div class="cat-page-name" id="cat-name">Berita</div>
+      <div class="cat-page-desc" id="cat-desc">Laporan peristiwa terkini dari berbagai penjuru dengan pendekatan jurnalistik yang bertanggung jawab.</div>
+    </div>
+    <div class="article-grid" id="cat-articles"></div>
+  </div>
+</div>
+
+<!-- ========== ADMIN LOGIN ========== -->
+<div class="page" id="page-login">
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-header">
+        <div class="login-logo">Ruang<span>Warta</span></div>
+        <div class="login-desc">Panel Redaksi — masuk dengan akun editor</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" value="editor@ruangwarta.id" placeholder="Email redaksi">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Kata Sandi</label>
+        <input class="form-input" type="password" value="••••••••" placeholder="Kata sandi">
+      </div>
+      <button class="admin-primary-btn" style="width:100%;padding:12px;font-size:14px" onclick="showPage('admin')">Masuk ke Panel Redaksi</button>
+      <div style="margin-top:16px;font-size:12px;color:var(--ink3);text-align:center;cursor:pointer;text-decoration:underline">Lupa kata sandi?</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ADMIN DASHBOARD ========== -->
+<div class="page" id="page-admin">
+  <div class="admin-wrap">
+    <!-- SIDEBAR -->
+    <div class="admin-sidebar">
+      <div class="admin-logo">Ruang<span>Warta</span><br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,.4);font-family:var(--sans)">Panel Redaksi</span></div>
+      <div class="admin-nav-section">Utama</div>
+      <div class="admin-nav-item active" onclick="switchAdmin('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="admin-nav-item" onclick="switchAdmin('articles')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Artikel
+      </div>
+      <div class="admin-nav-item" onclick="switchAdmin('new-article')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Tambah Artikel
+      </div>
+      <div class="admin-nav-section">Konten</div>
+      <div class="admin-nav-item" onclick="switchAdmin('categories')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Kategori
+      </div>
+      <div class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        Tag
+      </div>
+      <div class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Penulis
+      </div>
+      <div class="admin-nav-section">Interaksi</div>
+      <div class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Komentar
+      </div>
+      <div class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Newsletter
+      </div>
+      <div class="admin-nav-section">Sistem</div>
+      <div class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41A8 8 0 0 1 19.93 12h2a10 10 0 0 0-2.86-7.07z"/><path d="M4.93 4.93l1.41 1.41A8 8 0 0 0 4.07 12h-2a10 10 0 0 1 2.86-7.07z"/></svg>
+        Pengaturan
+      </div>
+      <div class="admin-nav-item" onclick="showPage('home')" style="margin-top:8px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Keluar
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-main">
+
+      <!-- DASHBOARD -->
+      <div class="admin-page active" id="admin-dashboard">
+        <div class="admin-top-bar">
+          <div class="admin-section-title">Dashboard</div>
+          <div style="font-size:13px;color:var(--ink3)">Selamat datang, <strong>Rini Astuti</strong> · Editor</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num brick">247</div>
+            <div class="stat-label">Total Artikel</div>
+            <div class="stat-change">↑ 12 artikel bulan ini</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">84.2K</div>
+            <div class="stat-label">Total Pembaca</div>
+            <div class="stat-change">↑ 18% vs bulan lalu</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">14</div>
+            <div class="stat-label">Draft Menunggu</div>
+            <div class="stat-change" style="color:var(--brick)">5 perlu review</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1.2K</div>
+            <div class="stat-label">Subscriber Newsletter</div>
+            <div class="stat-change">↑ 43 minggu ini</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div style="padding:16px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+            <div style="font-size:14px;font-weight:700">Artikel Terbaru</div>
+            <button class="admin-action-btn" onclick="switchAdmin('articles')">Lihat Semua</button>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>Judul</th><th>Penulis</th><th>Kategori</th><th>Status</th><th>Views</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr><td><span style="font-weight:600">Krisis Air di Pesisir Selatan</span></td><td>Sari Dewanti</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>4.821</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+              <tr><td><span style="font-weight:600">DPRD Kota Gelar Rapat Darurat</span></td><td>Rahmat Hakim</td><td>Berita</td><td><span class="status-pill published">Terbit</span></td><td>2.103</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td>Opini</td><td><span class="status-pill review">Review</span></td><td>—</td><td><button class="admin-action-btn">Publish</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+              <tr><td><span style="font-weight:600">Perpustakaan Keliling di Desa</span></td><td>Kontributor</td><td>Liputan Warga</td><td><span class="status-pill draft">Draft</span></td><td>—</td><td><button class="admin-action-btn">Review</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+              <tr><td><span style="font-weight:600">Festival Seni Lokal Kembali Hadir</span></td><td>Dewi Anggraini</td><td>Budaya</td><td><span class="status-pill published">Terbit</span></td><td>1.876</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div class="admin-card">
+            <div style="padding:16px 20px;border-bottom:1.5px solid var(--border);font-size:14px;font-weight:700">Artikel Populer Minggu Ini</div>
+            <div style="padding:4px 0">
+              <div style="padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;font-size:13px">
+                <span style="font-family:var(--display);font-size:20px;font-weight:900;color:var(--brick);min-width:24px">1</span>
+                <span style="flex:1;font-weight:500">Krisis Air di Pesisir Selatan</span>
+                <span style="color:var(--ink3)">4.8K</span>
+              </div>
+              <div style="padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;font-size:13px">
+                <span style="font-family:var(--display);font-size:20px;font-weight:900;color:var(--ink3);min-width:24px">2</span>
+                <span style="flex:1;font-weight:500">Festival Seni Lokal Kembali Hadir</span>
+                <span style="color:var(--ink3)">1.9K</span>
+              </div>
+              <div style="padding:12px 20px;display:flex;align-items:center;gap:12px;font-size:13px">
+                <span style="font-family:var(--display);font-size:20px;font-weight:900;color:var(--ink3);min-width:24px">3</span>
+                <span style="flex:1;font-weight:500">DPRD Kota Gelar Rapat Darurat</span>
+                <span style="color:var(--ink3)">2.1K</span>
+              </div>
+            </div>
+          </div>
+          <div class="admin-card">
+            <div style="padding:16px 20px;border-bottom:1.5px solid var(--border);font-size:14px;font-weight:700">Status Artikel</div>
+            <div style="padding:20px">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="height:10px;border-radius:2px;background:#1a7a3f;width:60%"></div>
+                  <span style="font-size:13px;color:var(--ink2)">Terbit (148)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="height:10px;border-radius:2px;background:#b45309;width:22%"></div>
+                  <span style="font-size:13px;color:var(--ink2)">Draft (54)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="height:10px;border-radius:2px;background:#1d4ed8;width:10%"></div>
+                  <span style="font-size:13px;color:var(--ink2)">Review (24)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="height:10px;border-radius:2px;background:#9ca3af;width:8%"></div>
+                  <span style="font-size:13px;color:var(--ink2)">Arsip (21)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLES LIST -->
+      <div class="admin-page" id="admin-articles">
+        <div class="admin-top-bar">
+          <div class="admin-section-title">Manajemen Artikel</div>
+          <button class="admin-primary-btn" onclick="switchAdmin('new-article')">+ Tulis Artikel Baru</button>
+        </div>
+        <div class="admin-card" style="margin-bottom:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
+          <input class="form-input" style="max-width:300px;margin:0" placeholder="Cari artikel...">
+          <select class="form-select" style="max-width:160px;margin:0"><option>Semua Status</option><option>Terbit</option><option>Draft</option><option>Review</option></select>
+          <select class="form-select" style="max-width:160px;margin:0"><option>Semua Kategori</option><option>Berita</option><option>Opini</option><option>Budaya</option></select>
+        </div>
+        <div class="admin-card">
+          <table class="admin-table">
+            <thead><tr><th>Judul Artikel</th><th>Penulis</th><th>Kategori</th><th>Status</th><th>Tanggal</th><th>Views</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr><td><span style="font-weight:600">Krisis Air di Pesisir Selatan</span></td><td>Sari Dewanti</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>14 Mei</td><td>4.821</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Pasar Tradisional Terakhir</span></td><td>Adi Pratama</td><td>Komunitas</td><td><span class="status-pill published">Terbit</span></td><td>13 Mei</td><td>1.204</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Kota Pintar tanpa Warga Cerdas</span></td><td>Mirna Sanjaya</td><td>Opini</td><td><span class="status-pill review">Review</span></td><td>12 Mei</td><td>—</td><td><button class="admin-action-btn">Publish</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><span style="font-weight:600">Perpustakaan Keliling di Desa</span></td><td>Kontributor</td><td>Liputan Warga</td><td><span class="status-pill draft">Draft</span></td><td>11 Mei</td><td>—</td><td><button class="admin-action-btn">Review</button><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><span style="font-weight:600">Festival Seni Lokal Kembali</span></td><td>Dewi Anggraini</td><td>Budaya</td><td><span class="status-pill published">Terbit</span></td><td>12 Mei</td><td>1.876</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
+              <tr><td><span style="font-weight:600">Hutan Mangrove Terancam</span></td><td>Yanti Kusuma</td><td>Lingkungan</td><td><span class="status-pill published">Terbit</span></td><td>13 Mei</td><td>987</td><td><button class="admin-action-btn" onclick="switchAdmin('new-article')">Edit</button><button class="admin-action-btn">Arsip</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- NEW ARTICLE EDITOR -->
+      <div class="admin-page" id="admin-new-article">
+        <div class="admin-top-bar">
+          <div class="admin-section-title">Tulis Artikel</div>
+          <div style="display:flex;gap:8px">
+            <button class="admin-action-btn">Simpan Draft</button>
+            <button class="admin-action-btn">Preview</button>
+            <button class="admin-primary-btn" onclick="publishDone()">Publish</button>
+          </div>
+        </div>
+
+        <!-- AI ASSISTANT BAR -->
+        <div class="ai-assist-bar">
+          <span class="ai-label">🤖 AI Asisten:</span>
+          <button class="ai-btn" onclick="aiGenerate('headline')">Buat Judul</button>
+          <button class="ai-btn" onclick="aiGenerate('summary')">Buat Ringkasan</button>
+          <button class="ai-btn" onclick="aiGenerate('meta')">Meta SEO</button>
+          <button class="ai-btn" onclick="aiGenerate('tags')">Rekomendasi Tag</button>
+          <button class="ai-btn" onclick="aiGenerate('proofread')">Proofread</button>
+          <button class="ai-btn" onclick="aiGenerate('caption')">Caption Sosmed</button>
+          <div class="ai-result" id="aiResult"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 280px;gap:24px">
+          <div>
+            <div class="form-group">
+              <label class="form-label">Judul Artikel</label>
+              <input class="form-input" style="font-size:18px;font-weight:700;padding:12px" id="articleTitle" value="Krisis Air di Pesisir Selatan: Ketika Warga Harus Pilih" oninput="updateSlug(this.value)" placeholder="Tulis judul artikel...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Slug URL</label>
+              <input class="form-input" id="articleSlug" value="krisis-air-di-pesisir-selatan-ketika-warga-harus-pilih" placeholder="slug-otomatis" style="color:var(--brick);font-size:13px">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lead / Ringkasan Pembuka</label>
+              <textarea class="form-input" style="resize:vertical;min-height:80px" placeholder="Tulis kalimat pembuka yang kuat...">Ribuan warga di lima kecamatan pesisir kini menghadapi krisis air bersih yang makin parah seiring mundurnya muka air tanah.</textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Isi Artikel</label>
+              <div class="editor-wrap">
+                <div class="editor-toolbar">
+                  <button class="editor-tool"><b>B</b></button>
+                  <button class="editor-tool"><i>I</i></button>
+                  <button class="editor-tool">H2</button>
+                  <button class="editor-tool">H3</button>
+                  <button class="editor-tool">""</button>
+                  <button class="editor-tool">—</button>
+                  <button class="editor-tool">🖼</button>
+                  <button class="editor-tool">🔗</button>
+                </div>
+                <textarea class="editor-body" placeholder="Tulis isi artikel di sini...">Sudah tiga bulan terakhir, Ibu Sumiyati (58) harus bangun pukul empat pagi hanya untuk mendapatkan air. Bukan dari keran rumahnya—sudah lama itu kering—melainkan dari mata air yang jaraknya dua kilometer dari tempat tinggalnya di Dusun Pantai Rejo...</textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">Gambar Utama</label>
+              <div style="border:2px dashed var(--border-dark);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px;background:#f9f9f8;flex-direction:column;gap:8px" onclick="fakeUpload()">
+                <div id="uploadPlaceholder" style="text-align:center">
+                  <div style="font-size:28px">🖼️</div>
+                  <div style="font-size:12px;color:var(--ink3);margin-top:4px">Klik untuk upload gambar</div>
+                  <div style="font-size:10px;color:var(--ink3)">JPG, PNG, WebP · Maks 5MB</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group" style="margin:0">
+                <label class="form-label">Kategori</label>
+                <select class="form-select">
+                  <option>Pilih...</option>
+                  <option selected>Lingkungan</option>
+                  <option>Berita</option>
+                  <option>Opini</option>
+                  <option>Budaya</option>
+                  <option>Komunitas</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0">
+                <label class="form-label">Status</label>
+                <select class="form-select">
+                  <option>Draft</option>
+                  <option>Review</option>
+                  <option selected>Terbit</option>
+                  <option>Terjadwal</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Penulis</label>
+              <select class="form-select">
+                <option selected>Sari Dewanti</option>
+                <option>Adi Pratama</option>
+                <option>Rahmat Hakim</option>
+                <option>Dewi Anggraini</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tag</label>
+              <input class="form-input" value="Air Bersih, Pesisir, Krisis, Lingkungan" placeholder="Pisahkan dengan koma">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Meta Title (SEO)</label>
+              <input class="form-input" style="font-size:13px" value="Krisis Air di Pesisir Selatan | RuangWarta" placeholder="Max 60 karakter">
+              <div style="font-size:10px;color:var(--ink3);margin-top:4px">41/60 karakter</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Meta Description (SEO)</label>
+              <textarea class="form-input" style="resize:none;height:72px;font-size:13px" placeholder="Max 155 karakter">Ribuan warga pesisir hadapi krisis air bersih akibat penurunan muka air tanah dan alih fungsi lahan tambak.</textarea>
+              <div style="font-size:10px;color:var(--ink3);margin-top:4px">122/155 karakter</div>
+            </div>
+            <div style="display:flex;gap:10px">
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" checked> Pilihan Editor</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox"> Artikel Unggulan</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="admin-page" id="admin-categories">
+        <div class="admin-top-bar">
+          <div class="admin-section-title">Manajemen Kategori</div>
+          <button class="admin-primary-btn">+ Tambah Kategori</button>
+        </div>
+        <div class="admin-card">
+          <table class="admin-table">
+            <thead><tr><th>Nama Kategori</th><th>Slug</th><th>Deskripsi</th><th>Jumlah Artikel</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Berita</strong></td><td style="color:var(--brick);font-size:12px">/kategori/berita</td><td style="color:var(--ink3)">Liputan peristiwa terkini</td><td>124</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><strong>Opini</strong></td><td style="color:var(--brick);font-size:12px">/kategori/opini</td><td style="color:var(--ink3)">Pendapat dan analisis</td><td>87</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><strong>Budaya</strong></td><td style="color:var(--brick);font-size:12px">/kategori/budaya</td><td style="color:var(--ink3)">Seni, tradisi, dan identitas</td><td>62</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><strong>Komunitas</strong></td><td style="color:var(--brick);font-size:12px">/kategori/komunitas</td><td style="color:var(--ink3)">Gerakan dan cerita warga</td><td>58</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><strong>Lingkungan</strong></td><td style="color:var(--brick);font-size:12px">/kategori/lingkungan</td><td style="color:var(--ink3)">Alam, iklim, dan keberlanjutan</td><td>49</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+              <tr><td><strong>Liputan Warga</strong></td><td style="color:var(--brick);font-size:12px">/kategori/liputan-warga</td><td style="color:var(--ink3)">Suara langsung dari lapangan</td><td>44</td><td><button class="admin-action-btn">Edit</button><button class="admin-action-btn">Hapus</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const articles = {
+  featured:{cat:'Lingkungan',title:'Krisis Air di Pesisir Selatan: Ketika Warga Harus Pilih Antara Minum dan Mandi',lede:'Ribuan warga di lima kecamatan pesisir kini menghadapi krisis air bersih yang makin parah seiring mundurnya muka air tanah.',author:'Sari Dewanti',av:'SD',date:'14 Mei 2025',read:'8 menit baca'},
+  a2:{cat:'Komunitas',title:'Pasar Tradisional Terakhir di Pusat Kota Hadapi Ancaman Pembangunan Mall',lede:'Pedagang yang sudah berjualan puluhan tahun kini was-was setelah investor besar melirik lahan pasar.',author:'Adi Pratama',av:'AP',date:'13 Mei 2025',read:'5 menit baca'},
+  a3:{cat:'Pendidikan',title:'Sekolah Satu Atap di Perbatasan: Satu Guru untuk Enam Kelas',lede:'Di pelosok perbatasan, seorang guru mengabdi sendirian, mengajar dari kelas satu hingga enam dengan penuh dedikasi.',author:'Lilis Handayani',av:'LH',date:'13 Mei 2025',read:'7 menit baca'},
+  a4:{cat:'Opini',title:'Mengapa Subsidi Bahan Bakar Bukan Solusi Energi Jangka Panjang',lede:'Ketergantungan pada subsidi BBM justru memperlambat transisi energi bersih yang sudah mendesak dilakukan.',author:'Prof. Budi Santoso',av:'BS',date:'13 Mei 2025',read:'6 menit baca'},
+  a5:{cat:'Lingkungan',title:'Hutan Mangrove Terancam: 40% Kawasan Pesisir Rusak Akibat Tambak Ilegal',lede:'Riset terbaru menunjukkan kerusakan yang jauh lebih parah dari perkiraan awal, mengancam ekosistem laut.',author:'Yanti Kusuma',av:'YK',date:'13 Mei 2025',read:'5 menit baca'},
+  a6:{cat:'Berita',title:'DPRD Kota Gelar Rapat Darurat Soal Anggaran Infrastruktur yang Tersendat',lede:'Sembilan proyek pembangunan jalan dihentikan sementara karena menunggu pencairan anggaran.',author:'Rahmat Hakim',av:'RH',date:'12 Mei 2025',read:'4 menit baca'},
+  a7:{cat:'Budaya',title:'Festival Seni Lokal Kembali Hadir: Puluhan Seniman Muda Pamerkan Karyanya',lede:'Setelah tiga tahun vakum, festival ini kembali menjadi ruang ekspresi bagi komunitas seni lokal.',author:'Dewi Anggraini',av:'DA',date:'12 Mei 2025',read:'6 menit baca'},
+  op1:{cat:'Opini',title:'Kota Pintar tanpa Warga Cerdas: Ironi Digitalisasi yang Tak Merata',lede:'Program smart city menghabiskan miliaran rupiah, namun masih banyak warga yang belum bisa mengakses internet.',author:'Mirna Sanjaya',av:'MS',date:'12 Mei 2025',read:'7 menit baca'},
+  op2:{cat:'Esai',title:'Belajar dari Desa: Kenapa Kota Justru Perlu Meniru Gotong Royong',lede:'Di saat urbanisasi mengikis solidaritas, desa-desa kecil justru membuktikan nilai-nilai komunal masih bisa diandalkan.',author:'Hendra Wijaya',av:'HW',date:'11 Mei 2025',read:'8 menit baca'},
+  op3:{cat:'Opini',title:'Media Lokal di Titik Kritis: Antara Bertahan dan Bermartabat',lede:'Tekanan ekonomi dan konsolidasi media mengancam keberagaman informasi yang selama ini dijaga media lokal.',author:'Fitri Amaliah',av:'FA',date:'10 Mei 2025',read:'6 menit baca'},
+  op4:{cat:'Esai',title:'Ruang Publik yang Kita Rindukan: Taman Kota bukan untuk Warga',lede:'Taman yang seharusnya menjadi milik semua kini semakin sulit diakses oleh warga dari kalangan bawah.',author:'Ahmad Fauzan',av:'AF',date:'9 Mei 2025',read:'5 menit baca'},
+  lw1:{cat:'Liputan Warga',title:'Kisah Bu Siti: Bertahan Jadi Petani Garam di Tengah Gempuran Impor',lede:'Tiga generasi keluarga Siti bergantung pada ladang garam yang kini terancam kebijakan impor besar-besaran.',author:'Kontributor Lokal',av:'KL',date:'10 Mei 2025',read:'6 menit baca'},
+  lw2:{cat:'Liputan Warga',title:'Kampung Digital: Ketika Ibu-Ibu PKK Belajar Jualan Online dari Nol',lede:'Program pelatihan ekonomi digital membawa perubahan nyata bagi kehidupan warga kampung terpencil ini.',author:'Kontributor Lokal',av:'KL',date:'9 Mei 2025',read:'5 menit baca'},
+  lw3:{cat:'Liputan Warga',title:'Perpustakaan Keliling di Desa: Satu Motor, Ratusan Buku, Ribuan Mimpi',lede:'Pak Darmawan sudah 12 tahun membawa buku ke pelosok desa dengan motor tuanya yang mulai sering mogok.',author:'Kontributor Lokal',av:'KL',date:'8 Mei 2025',read:'7 menit baca'},
+};
+
+const catInfo = {
+  Berita:{desc:'Laporan peristiwa terkini dari berbagai penjuru dengan pendekatan jurnalistik yang bertanggung jawab.'},
+  Opini:{desc:'Ruang bagi penulis, peneliti, dan warga untuk menyuarakan gagasan, kritik, dan refleksi.'},
+  Budaya:{desc:'Cerita tentang seni, tradisi, identitas lokal, dan ekspresi budaya masyarakat.'},
+  Komunitas:{desc:'Liputan gerakan, inisiatif, dan cerita dari berbagai komunitas yang membentuk masyarakat kita.'},
+  Lingkungan:{desc:'Isu alam, perubahan iklim, dan keberlanjutan dari sudut pandang warga dan peneliti.'},
+  Pendidikan:{desc:'Cerita dari ruang belajar: sekolah, kampus, komunitas, dan semua tempat ilmu tumbuh.'},
+  'Liputan Warga':{desc:'Suara langsung dari lapangan: warga bercerita tentang kehidupan dan perjuangan mereka.'},
+};
+
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  window.scrollTo(0,0);
+  if(p==='admin'){
+    document.querySelectorAll('.admin-page').forEach(el=>el.classList.remove('active'));
+    document.getElementById('admin-dashboard').classList.add('active');
+    document.querySelectorAll('.admin-nav-item').forEach(el=>el.classList.remove('active'));
+    document.querySelector('.admin-nav-item').classList.add('active');
+  }
+}
+
+function showArticle(id){
+  const a=articles[id];
+  if(!a)return;
+  document.getElementById('article-cat').textContent=a.cat;
+  document.getElementById('article-breadcat').textContent=a.cat;
+  document.getElementById('article-title').textContent=a.title;
+  document.getElementById('article-lede').textContent=a.lede;
+  document.getElementById('article-author').textContent=a.author;
+  document.getElementById('article-avatar').textContent=a.av;
+  document.getElementById('article-date').textContent=a.date;
+  document.getElementById('article-read').textContent=a.read;
+  showPage('article');
+}
+
+function showCat(name){
+  document.getElementById('cat-name').textContent=name;
+  document.getElementById('cat-desc').textContent=(catInfo[name]||{desc:'Artikel-artikel pilihan dalam kategori ini.'}).desc;
+  const keys=Object.keys(articles).filter(k=>articles[k].cat===name||name==='Berita');
+  const grid=document.getElementById('cat-articles');
+  const shown=keys.slice(0,6);
+  grid.innerHTML=shown.map(k=>{
+    const a=articles[k];
+    return `<div class="article-card" onclick="showArticle('${k}')">
+      <div class="card-img"><div class="card-img-ph" style="background:linear-gradient(135deg,#1a1a2e,#2d4a3a)">${['🌿','📰','🎭','🏘️','🎓','🌊'][Math.floor(Math.random()*6)]}</div></div>
+      <div class="card-cat">${a.cat}</div>
+      <div class="card-title">${a.title}</div>
+      <div class="card-excerpt">${a.lede}</div>
+      <div class="card-meta"><span>${a.author}</span><div class="card-dot"></div><span>${a.date}</span></div>
+    </div>`;
+  }).join('');
+  showPage('category');
+  document.querySelectorAll('.nav-cat').forEach(el=>{
+    el.classList.toggle('active',el.textContent===name);
+  });
+}
+
+function switchAdmin(panel){
+  document.querySelectorAll('.admin-page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('admin-'+panel).classList.add('active');
+  document.querySelectorAll('.admin-nav-item').forEach(el=>el.classList.remove('active'));
+  const map={dashboard:0,articles:1,'new-article':2,categories:3};
+  const items=document.querySelectorAll('.admin-nav-item');
+  if(map[panel]!==undefined)items[map[panel]].classList.add('active');
+}
+
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('searchInput').focus(),50);
+}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open')}
+
+function doSearch(q){
+  const res=document.getElementById('searchResults');
+  if(!q.trim()){res.innerHTML='';return;}
+  const matches=Object.keys(articles).filter(k=>articles[k].title.toLowerCase().includes(q.toLowerCase())||articles[k].cat.toLowerCase().includes(q.toLowerCase()));
+  res.innerHTML=matches.slice(0,5).map(k=>`<div class="search-result-item" onclick="closeSearch();showArticle('${k}')">
+    <div class="sr-cat">${articles[k].cat}</div>
+    <div class="sr-title">${articles[k].title}</div>
+  </div>`).join('')||`<div style="padding:16px 0;color:var(--ink3);font-size:14px">Tidak ada hasil untuk "${q}"</div>`;
+}
+
+function updateSlug(v){
+  document.getElementById('articleSlug').value=v.toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
+}
+
+const aiResponses = {
+  headline:['5 Alternatif Judul:\n1. Air di Ujung Tanduk: Ribuan Warga Pesisir Kehabisan Sumber\n2. Mata Air Mengering, Warga Bertahan: Laporan dari Pesisir Selatan\n3. Tiga Bulan Tanpa Air: Kisah dari Balik Krisis yang Tak Terliput\n4. Ketika Laut Ada di Mana-Mana Tapi Air Bersih Tak Ada\n5. Sumur Mengering, Harapan Tak Boleh Ikut Mengering'],
+  summary:['Ringkasan: Lebih dari 12.000 kepala keluarga di lima kecamatan pesisir menghadapi krisis air bersih akibat penurunan debet air tanah hingga 70 persen. Warga terpaksa menempuh jarak jauh untuk mengambil air dari mata air satu-satunya yang tersisa, sementara pemerintah daerah belum menunjukkan respons yang memadai.'],
+  meta:['Meta Description (118 karakter):\n"Krisis air bersih di pesisir selatan memaksa ribuan warga tempuh jarak jauh setiap hari. Investigasi RuangWarta dari lapangan."'],
+  tags:['Rekomendasi 8 Tag:\n• Air Bersih • Pesisir Selatan • Krisis Air • Lingkungan Hidup\n• Tambak Ilegal • Warga Terdampak • Investigasi • Kebijakan Daerah'],
+  proofread:['✓ Ejaan dan tanda baca: Baik\n✓ Konsistensi gaya bahasa: Cukup baik\n⚠ Kalimat ke-3 paragraf 2: Terlalu panjang, sebaiknya dipecah\n⚠ Kata "daripada" sebaiknya diganti "dari" di paragraf 4\n✓ Lead sudah kuat dan langsung ke inti'],
+  caption:['Caption Instagram:\n"Tiga bulan. Jarak 2 km. Jeriken 20 liter. Itu rutinitas Bu Sumiyati setiap pagi hanya untuk mendapat air minum.\n\nKrisis air di pesisir selatan bukan cerita baru—tapi masih saja luput dari perhatian.\n\nBaca selengkapnya di link bio. 🔗\n\n#AirBersih #LingkunganHidup #MediaIndependen #RuangWarta"']
+};
+
+function aiGenerate(type){
+  const r=document.getElementById('aiResult');
+  r.style.display='block';
+  r.textContent='🤖 Memproses...';
+  setTimeout(()=>{
+    r.textContent=aiResponses[type][0];
+    r.style.whiteSpace='pre-line';
+  },800);
+}
+
+function publishDone(){
+  alert('✓ Artikel berhasil dipublikasikan!');
+  switchAdmin('articles');
+}
+
+function fakeUpload(){
+  const p=document.getElementById('uploadPlaceholder');
+  p.innerHTML='<div style="font-size:28px">✅</div><div style="font-size:12px;color:#1a7a3f;margin-top:4px;font-weight:600">foto-pesisir-air.jpg</div><div style="font-size:10px;color:var(--ink3)">2.4 MB · Klik untuk ganti</div>';
+}
+
+function toggleReadMode(){document.body.classList.toggle('reading-mode')}
+
+function copyLink(){
+  navigator.clipboard.writeText('https://ruangwarta.id/artikel/krisis-air-pesisir-selatan').catch(()=>{});
+  alert('✓ Tautan artikel disalin!');
+}
+
+function subscribeNL(){
+  const e=document.getElementById('nlEmail');
+  if(e.value){alert('✓ Terima kasih! Kamu sudah berlangganan RuangWarta Newsletter.');e.value='';}
+  else alert('Masukkan alamat email kamu terlebih dahulu.');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch()});
+</script>
+</html>
