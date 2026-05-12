@@ -6,7 +6,6 @@
 config/credentials.js
 config/*.secret.*
 config/schema.sql
-js/supabase.js
 *.env
 .env
 .env.*
